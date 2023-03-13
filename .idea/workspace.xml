@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="SQL format">
+    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="seeding data into DB">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/AuthorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/BookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/exception/NotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/AuthorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,13 +25,14 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,10 +59,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Pobrane/portfolioLabCharity&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;7e89da29b91c2c79127ea6ffd1bafb3b&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -64,6 +76,14 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.pekao.projektpekao.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.pekao.projektpekao.exception" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="ProjektPekaoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="dev" />
@@ -84,7 +104,9 @@
       <updated>1678540996177</updated>
       <workItem from="1678540999134" duration="4590000" />
       <workItem from="1678609183849" duration="1904000" />
-      <workItem from="1678695958257" duration="3122000" />
+      <workItem from="1678695958257" duration="4603000" />
+      <workItem from="1678727043182" duration="950000" />
+      <workItem from="1678728035164" duration="5928000" />
     </task>
     <task id="LOCAL-00001" summary="1 commits - pekao projekt">
       <created>1678696036649</created>
@@ -100,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678702401373</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="seeding data into DB">
+      <created>1678708184084</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678708184084</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +138,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1 commits - pekao projekt" />
     <MESSAGE value="SQL format" />
-    <option name="LAST_COMMIT_MESSAGE" value="SQL format" />
+    <MESSAGE value="seeding data into DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="seeding data into DB" />
   </component>
 </project>

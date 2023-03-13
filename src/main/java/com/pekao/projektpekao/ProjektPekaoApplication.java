@@ -1,13 +1,12 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Author;
 import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.repository.AuthorRepository;
 import com.pekao.projektpekao.repository.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import com.pekao.projektpekao.entity.Author;
 import java.util.Arrays;
 
 @SpringBootApplication
