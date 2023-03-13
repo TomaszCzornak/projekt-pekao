@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="1 commits - pekao projekt">
+    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="SQL format">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +84,7 @@
       <updated>1678540996177</updated>
       <workItem from="1678540999134" duration="4590000" />
       <workItem from="1678609183849" duration="1904000" />
-      <workItem from="1678695958257" duration="1310000" />
+      <workItem from="1678695958257" duration="3122000" />
     </task>
     <task id="LOCAL-00001" summary="1 commits - pekao projekt">
       <created>1678696036649</created>
@@ -91,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678696036649</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="SQL format">
+      <created>1678702401373</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1678702401373</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1 commits - pekao projekt" />
-    <option name="LAST_COMMIT_MESSAGE" value="1 commits - pekao projekt" />
+    <MESSAGE value="SQL format" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL format" />
   </component>
 </project>
