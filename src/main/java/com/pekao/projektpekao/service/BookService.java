@@ -21,9 +21,9 @@ public class BookService {
     public Book findBookById(Long id) {
         return findOrThrow(id);
     }
-    private Book findOrThrow(final Long id) {
+    private Book findOrThrow(Long id) {
         return bookRepository.findById(id).orElseThrow(
-                        () -> new NotFoundException("This book by id " + id + " was not found"));
+                        () -> new NotFoundException("Nie ma książki o id " + id ));
     }
     public void removeBookById(Long id) {
         bookRepository.deleteById(id);

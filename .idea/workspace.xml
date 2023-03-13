@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="seeding data into DB">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/AuthorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/BookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/exception/NotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/AuthorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="controller - service - repository">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +96,7 @@
       <workItem from="1678609183849" duration="1904000" />
       <workItem from="1678695958257" duration="4603000" />
       <workItem from="1678727043182" duration="950000" />
-      <workItem from="1678728035164" duration="5928000" />
+      <workItem from="1678728035164" duration="6322000" />
     </task>
     <task id="LOCAL-00001" summary="1 commits - pekao projekt">
       <created>1678696036649</created>
@@ -129,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678708184084</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="controller - service - repository">
+      <created>1678734364008</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678734364008</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +136,7 @@
     <MESSAGE value="1 commits - pekao projekt" />
     <MESSAGE value="SQL format" />
     <MESSAGE value="seeding data into DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="seeding data into DB" />
+    <MESSAGE value="controller - service - repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="controller - service - repository" />
   </component>
 </project>
