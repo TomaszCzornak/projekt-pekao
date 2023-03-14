@@ -26,8 +26,8 @@ public class ProjektPekaoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Author author1 = new Author("John", "Walker");
-        Author author2 = new Author("Brian", "May");
+        Author author1 = new Author("Craig", "Walls");
+        Author author2 = new Author("Pierre-Yves", "Saumont");
         authorRepository.saveAll(Arrays.asList(author1, author2));
 
         Book book1 = new Book("Spring w Akcji", author1);
