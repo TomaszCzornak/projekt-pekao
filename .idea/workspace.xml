@@ -22,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -98,7 +103,7 @@
       <workItem from="1678695958257" duration="4603000" />
       <workItem from="1678727043182" duration="950000" />
       <workItem from="1678728035164" duration="7032000" />
-      <workItem from="1678778707351" duration="887000" />
+      <workItem from="1678778707351" duration="3039000" />
     </task>
     <task id="LOCAL-00001" summary="1 commits - pekao projekt">
       <created>1678696036649</created>
@@ -149,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678778984176</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="controller - service - repository">
+      <created>1678779639884</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1678779639884</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
