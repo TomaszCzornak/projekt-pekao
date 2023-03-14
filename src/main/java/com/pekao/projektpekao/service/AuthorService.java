@@ -26,7 +26,7 @@ public class AuthorService {
         return authorRepository
                 .findById(id)
                 .orElseThrow(
-                () -> new NotFoundException("This author by id " + id + " was not found"));
+                () -> new NotFoundException("Autor o id " + id + " nie istnieje"));
     }
     public void removeAuthorById(Long id) {
         authorRepository.deleteById(id);
