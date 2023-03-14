@@ -27,15 +27,16 @@ public class BookController {
         return bookService.findAllBooks();
     }
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable("id") Long id) {
+    public BookDto getBookById(@PathVariable("id") Long id) {
         return bookService.findBookById(id);
     }
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable("id") Long id) {
         bookService.removeBookById(id);
     }
+
     @PostMapping()
-    public Book postBook(@RequestBody Book book) {
+    public BookDto postBook(@RequestBody Book book) {
        return bookService.addBook(book);
     }
     @PutMapping("/{id}")
