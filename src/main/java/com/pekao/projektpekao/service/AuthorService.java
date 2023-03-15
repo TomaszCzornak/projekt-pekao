@@ -12,7 +12,7 @@ import java.util.List;
 public class AuthorService {
 
     //    private final AuthorRepository authorRepository;
-    @Resource("AuthorDaoJpaImpl")
+    @Resource(name = "AuthorDaoJpaImpl")
     private final AuthorDao authorDaoJpa;
 
 //    @Resource("AwsCloud")

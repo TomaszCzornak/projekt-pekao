@@ -2,37 +2,39 @@ package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.exception.NotFoundException;
-import com.pekao.projektpekao.repository.BookRepository;
+import com.pekao.projektpekao.infrastructure.BookDao;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
+    @Resource(name = "BookDaoJpaImpl")
+    private final BookDao bookDaoJpa;
 
-    private final BookRepository bookRepository;
-
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookService( BookDao bookDaoJpa) {
+        this.bookDaoJpa = bookDaoJpa;
     }
     public List<Book> findAllBooks() {
-        return bookRepository.findAll();
+        return bookDaoJpa.findAll();
     }
-    public Book findBookById(Long id) {
-        return findOrThrow(id);
+    public Optional<Book> findBookById(Long id) {
+        return bookDaoJpa.findById(id);
     }
     private Book findOrThrow(Long id) {
-        return bookRepository.findById(id).orElseThrow(
+        return bookDaoJpa.findById(id).orElseThrow(
                         () -> new NotFoundException("Nie ma książki o id " + id ));
     }
     public void removeBookById(Long id) {
-        bookRepository.deleteById(id);
+        bookDaoJpa.deleteById(id);
     }
     public Book addBook(Book book) {
-        return bookRepository.save(book);
+        return bookDaoJpa.addBook(book);
     }
     public void updateBook(Long id,Book book) {
         findOrThrow(id);
-        bookRepository.save(book);
+        bookDaoJpa.addBook(book);
     }
 }

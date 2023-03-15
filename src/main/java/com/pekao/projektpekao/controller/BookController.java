@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/book")
@@ -27,7 +29,7 @@ public class BookController {
         return bookService.findAllBooks();
     }
     @GetMapping("/{id}")
-    public BookDto getBookById(@PathVariable("id") Long id) {
+    public Optional<Book> getBookById(@PathVariable("id") Long id) {
         return bookService.findBookById(id);
     }
     @DeleteMapping("/{id}")
@@ -36,12 +38,14 @@ public class BookController {
     }
 
     @PostMapping()
-    public BookDto postBook(@RequestBody Book book) {
+    public Book postBook(@RequestBody Book book) {
        return bookService.addBook(book);
     }
     @PutMapping("/{id}")
     public void putBook(@PathVariable("id") Long id, @RequestBody Book book) {
-        if(!id.equals(book.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+        if(!Objects.equals(id, book.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+        }
         bookService.updateBook(id, book);
     }
 }
