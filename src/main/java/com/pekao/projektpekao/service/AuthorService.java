@@ -1,41 +1,52 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.entity.Author;
-import com.pekao.projektpekao.exception.NotFoundException;
-import com.pekao.projektpekao.repository.AuthorRepository;
+import com.pekao.projektpekao.infrastructure.AuthorDao;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+
 
 @Service
 public class AuthorService {
 
-    private final AuthorRepository authorRepository;
+    //    private final AuthorRepository authorRepository;
+    @Resource("AuthorDaoJpaImpl")
+    private final AuthorDao authorDaoJpa;
 
-    public AuthorService(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
+//    @Resource("AwsCloud")
+    @Resource("Azure")
+    private final CloudService cloudService;
+
+    public AuthorService(AuthorDao authorDaoJpa, final CloudService cloudService) {
+        this.authorDaoJpa = authorDaoJpa;
+        this.cloudService = cloudService;
     }
 
     public List findAllAuthors() {
-        return authorRepository.findAll();
+        cloudService.sendToAws("asd");
+        return authorDaoJpa.findAll();
     }
+
     public Author findAuthorById(Long id) {
-        return findOrThrow(id);
+        return authorDaoJpa.findById(id);
     }
-    private Author findOrThrow(Long id) {
-        return authorRepository
-                .findById(id)
-                .orElseThrow(
-                () -> new NotFoundException("Autor o id " + id + " nie istnieje"));
-    }
+
     public void removeAuthorById(Long id) {
-        authorRepository.deleteById(id);
+        // TODO: 3/14/2023 IMPL
+        //        authorDaoJpa.delete(id);
     }
+
     public Author addAuthor(Author author) {
-        return authorRepository.save(author);
+        // TODO: 3/14/2023 IMPL
+//        return authorDaoJpa.sa(author);
+        return null;
     }
+
     public Author updateAuthor(Long id, Author author) {
-        findOrThrow(id);
-        return authorRepository.save(author);
+        // TODO: 3/14/2023 IMPL
+//        return authorDaoJpa.save(author);
+        return null;
     }
 }
