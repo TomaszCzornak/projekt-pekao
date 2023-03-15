@@ -45,6 +45,6 @@ public class ProjektPekaoApplication implements CommandLineRunner {
         Comment comment2 = new Comment("Kolejny komentarz", book2);
         Comment comment3= new Comment("Ta książka jest ok", book3);
         commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
-        //test commita
+        //test commita after deletion
     }
 }
