@@ -25,6 +25,10 @@ public class UserService {
     public Optional<User> findUserById(Long id) {
         return userDaoJpa.findById(id);
     }
+
+    public Optional<User> findUserByEmail(String email) {
+        return userDaoJpa.findByEmail(email);
+    }
     public void removeUserById(Long id) {
         userDaoJpa.deleteById(id);
     }

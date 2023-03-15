@@ -2,6 +2,7 @@ package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.entity.Author;
 import com.pekao.projektpekao.infrastructure.AuthorDao;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,21 +12,14 @@ import java.util.List;
 @Service
 public class AuthorService {
 
-    //    private final AuthorRepository authorRepository;
     @Resource(name = "AuthorDaoJpaImpl")
     private final AuthorDao authorDaoJpa;
 
-//    @Resource("AwsCloud")
-    @Resource("Azure")
-    private final CloudService cloudService;
-
-    public AuthorService(AuthorDao authorDaoJpa, final CloudService cloudService) {
+    public AuthorService(@Qualifier("AuthorDaoJpaImpl") AuthorDao authorDaoJpa) {
         this.authorDaoJpa = authorDaoJpa;
-        this.cloudService = cloudService;
     }
 
     public List findAllAuthors() {
-        cloudService.sendToAws("asd");
         return authorDaoJpa.findAll();
     }
 
