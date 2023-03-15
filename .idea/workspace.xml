@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="controller - service - repository">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Comment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/BookDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/BookDaoJpaImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/CommentDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/CommentDaoJpaImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/infrastructure/UserDaoJpaImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/repository/CommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/UserService.java" afterDir="false" />
+    <list default="true" id="94a3c55c-b30d-40ac-9925-c9cadd514f9e" name="Changes" comment="Entities: Comment, User + CRUD">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/CommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/CommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/ProjektPekaoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/entity/Comment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/AuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pekao/projektpekao/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678778984176</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Entities: Comment, User + CRUD">
+      <created>1678892094867</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1678892094867</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +197,7 @@
     <MESSAGE value="SQL format" />
     <MESSAGE value="seeding data into DB" />
     <MESSAGE value="controller - service - repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller - service - repository" />
+    <MESSAGE value="Entities: Comment, User + CRUD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Entities: Comment, User + CRUD" />
   </component>
 </project>

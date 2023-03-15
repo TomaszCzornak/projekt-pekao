@@ -14,7 +14,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String content, Author author) {
+    public Comment(String content, Book book) {
         this.content = content;
         this.book = book;
     }
