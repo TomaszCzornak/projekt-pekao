@@ -10,7 +10,6 @@ public interface CommentDao {
 
     List<Comment> findAll();
     Optional<Comment> findById(Long id);
-    Comment findCommentByBook(Book book);
     void deleteCommentById(Long id);
     Comment addComment(Comment comment);
     Comment updateComment(Comment comment);

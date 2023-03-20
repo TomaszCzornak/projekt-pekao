@@ -4,7 +4,6 @@ import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.pekao.projektpekao.entity.Book;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -29,10 +28,7 @@ public class CommentController {
     public Optional<Comment> getCommentById(@PathVariable("id") Long id) {
         return commentService.findCommentById(id);
     }
-    @GetMapping
-    public Comment getCommentByBook(@RequestBody Book book) {
-        return commentService.findCommentByBook(book);
-    }
+
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable("id") Long id) {
         commentService.removeCommentById(id);

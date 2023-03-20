@@ -3,6 +3,7 @@ package com.pekao.projektpekao.entity;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -15,6 +16,8 @@ public class User {
     private String email;
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
             .format(new Date());
+    @OneToMany
+    private List<Comment> commentList;
 
     public User() {
     }

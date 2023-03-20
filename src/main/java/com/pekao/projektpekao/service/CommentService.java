@@ -1,8 +1,8 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.exception.NotFoundException;
 import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.Comment;
-import com.pekao.projektpekao.exception.NotFoundException;
 import com.pekao.projektpekao.infrastructure.CommentDao;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,6 @@ public class CommentService {
     }
     public Optional<Comment> findCommentById(Long id) {
         return commentDaoJpa.findById(id);
-    }
-    public Comment findCommentByBook(Book book) {
-        return commentDaoJpa.findCommentByBook(book);
     }
     public void removeCommentById(Long id) {
         commentDaoJpa.deleteCommentById(id);

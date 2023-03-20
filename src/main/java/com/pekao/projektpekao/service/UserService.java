@@ -1,8 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.User;
 import com.pekao.projektpekao.exception.NotFoundException;
 import com.pekao.projektpekao.infrastructure.UserDao;
+import com.pekao.projektpekao.entity.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -24,4 +24,19 @@ public class AuthorDaoJpaImpl implements AuthorDao {
     public Author findById(final Long id) {
         return authorRepository.findById(id).orElseThrow();
     }
+
+    @Override
+    public Author addAuthor(Author author) {
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public Author updateAuthor(Author author) {
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public void deleteAuthorById(Long id) {
+        authorRepository.deleteById(id);
+    }
 }

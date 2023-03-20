@@ -26,10 +26,6 @@ public class CommentDaoJpaImpl implements CommentDao {
         return commentRepository.findById(id);
     }
 
-    @Override
-    public Comment findCommentByBook(Book book) {
-        return commentRepository.findCommentByBook(book);
-    }
 
     @Override
     public void deleteCommentById(Long id) {

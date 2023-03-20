@@ -1,7 +1,6 @@
 package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Author;
-import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

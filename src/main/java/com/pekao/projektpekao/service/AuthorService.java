@@ -28,19 +28,15 @@ public class AuthorService {
     }
 
     public void removeAuthorById(Long id) {
-        // TODO: 3/14/2023 IMPL
-        //        authorDaoJpa.delete(id);
+        authorDaoJpa.deleteAuthorById(id);
     }
 
     public Author addAuthor(Author author) {
-        // TODO: 3/14/2023 IMPL
-//        return authorDaoJpa.sa(author);
-        return null;
+        return authorDaoJpa.addAuthor(author);
     }
 
     public Author updateAuthor(Long id, Author author) {
-        // TODO: 3/14/2023 IMPL
-//        return authorDaoJpa.save(author);
-        return null;
+        Author author1 = authorDaoJpa.findById(id);
+        return authorDaoJpa.addAuthor(author1);
     }
 }

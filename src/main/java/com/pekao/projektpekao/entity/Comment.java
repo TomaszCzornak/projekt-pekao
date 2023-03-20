@@ -8,15 +8,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String content;
-    @ManyToOne
-    private Book book;
 
     public Comment() {
     }
 
-    public Comment(String content, Book book) {
+    public Comment(String content) {
         this.content = content;
-        this.book = book;
     }
 
     public String getContent() {
@@ -25,14 +22,6 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public void setId(Long id) {

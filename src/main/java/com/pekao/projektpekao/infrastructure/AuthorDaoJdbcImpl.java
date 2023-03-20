@@ -19,4 +19,19 @@ class AuthorDaoJdbcImpl implements AuthorDao {
         // super wydaje zapytanie napsiane przez Maćka
         return null;
     }
+
+    @Override
+    public Author addAuthor(Author author) {
+        return null;
+    }
+
+    @Override
+    public Author updateAuthor(Author author) {
+        return null;
+    }
+
+    @Override
+    public void deleteAuthorById(Long id) {
+        deleteAuthorById(id);
+    }
 }
