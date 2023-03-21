@@ -22,11 +22,21 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String createdAt) {
+    public User(String firstName, String lastName, String email, String createdAt, List<Comment> commentList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.createdAt = createdAt;
+        this.commentList = commentList;
+
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public String getFirstName() {
