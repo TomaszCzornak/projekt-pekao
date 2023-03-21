@@ -15,6 +15,7 @@ import com.pekao.projektpekao.entity.Author;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class ProjektPekaoApplication implements CommandLineRunner {
@@ -36,26 +37,26 @@ public class ProjektPekaoApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Author author1 = new Author("Craig", "Walls");
         Author author2 = new Author("Pierre-Yves", "Saumont");
 
         authorRepository.saveAll(Arrays.asList(author1, author2));
 
-        Book book1 = new Book("Spring w Akcji", author1);
-        Book book2 = new Book("Java", author2);
-        Book book3 = new Book("Programowanie funkcyjne", author2);
-        bookRepository.saveAll(Arrays.asList(book1, book2, book3));
-        Comment comment1 = new Comment("Dupa Jasiu", book1);
-        Comment comment2 = new Comment("Kolejny komentarz", book2);
-        Comment comment3= new Comment("Ta książka jest ok", book3);
+        Comment comment1 = new Comment("Dupa Jasiu");
+        Comment comment2 = new Comment("Kolejny komentarz");
+        Comment comment3= new Comment("Ta książka jest ok");
         commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
+        Book book1 = new Book("Spring w Akcji", author1, List.of(comment2));
+        Book book2 = new Book("Java", author2, List.of(comment1));
+        Book book3 = new Book("Programowanie funkcyjne", author2, List.of(comment3));
+        bookRepository.saveAll(Arrays.asList(book1, book2, book3));
 
         User user1 = new User("Tomek", "Czornak", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-                .format(new Date()), Arrays.asList(comment3));
+                .format(new Date()), List.of(comment3));
         User user2 = new User("Marek", "Nowakowski", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-                .format(new Date()), Arrays.asList(comment1, comment2));
-        userRepository.saveAll(Arrays.asList(user1,user2));
+                .format(new Date()), List.of(comment1, comment2));
+        userRepository.saveAll(List.of(user1,user2));
 
 
     }
