@@ -1,7 +1,6 @@
 package com.pekao.projektpekao.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Book {
@@ -11,16 +10,13 @@ public class Book {
     private String title;
     @ManyToOne
     private Author author;
-    @OneToMany
-    private List<Comment> commentList;
 
     public Book() {
     }
 
-    public Book(String title, Author author, List<Comment> commentList) {
+    public Book(String title, Author author) {
         this.title = title;
         this.author = author;
-        this.commentList = commentList;
     }
 
     public String getTitle() {
@@ -47,11 +43,4 @@ public class Book {
         return id;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
-
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
 }
