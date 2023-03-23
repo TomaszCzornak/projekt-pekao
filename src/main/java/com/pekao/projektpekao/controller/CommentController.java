@@ -39,9 +39,9 @@ public class CommentController {
     }
     @PutMapping("/{id}")
     public void putComment(@PathVariable("id") Long id, @RequestBody Comment comment) {
-        if(!Objects.equals(id, comment.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
-        }
+//        if(!Objects.equals(id, comment.getId())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+//        }
         commentService.updateComment(id, comment);
     }
 
