@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.pekao.projektpekao.entity.Author;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class ProjektPekaoApplication implements CommandLineRunner {
 
 
         @Override
-        public void run (String...args){
+        public void run (String...args) {
             Author author1 = new Author("Craig", "Walls");
             Author author2 = new Author("Pierre-Yves", "Saumont");
 
@@ -63,4 +62,3 @@ public class ProjektPekaoApplication implements CommandLineRunner {
 
         }
     }
-}

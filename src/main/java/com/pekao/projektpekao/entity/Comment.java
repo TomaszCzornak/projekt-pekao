@@ -21,6 +21,14 @@ public class Comment {
         this.user = user;
         this.book = book;
     }
+    public Comment(String content, Book book) {
+        this.content = content;
+        this.book = book;
+    }
+
+    public Comment(String content) {
+        this.content = content;
+    }
 
     public User getUser() {
         return user;
