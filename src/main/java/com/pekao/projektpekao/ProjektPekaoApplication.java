@@ -25,6 +25,7 @@ public class ProjektPekaoApplication implements CommandLineRunner {
     }
 
     @Override
+<<<<<<< Updated upstream
     public void run(String... args) throws Exception {
         Author author1 = new Author("Craig", "Walls");
         Author author2 = new Author("Pierre-Yves", "Saumont");
@@ -34,5 +35,30 @@ public class ProjektPekaoApplication implements CommandLineRunner {
         Book book2 = new Book("Java", author2);
         Book book3 = new Book("Programowanie funkcyjne", author2);
         bookRepository.saveAll(Arrays.asList(book1, book2, book3));
+=======
+    public void run(String... args) {
+        Author author1 = new Author("Craig", "Walls");
+        Author author2 = new Author("Pierre-Yves", "Saumont");
+
+        authorRepository.saveAll(List.of(author1, author2));
+
+        Comment comment1 = commentRepository.save(new Comment("Dupa Jasiu"));
+        Comment comment2 = commentRepository.save(new Comment("Kolejny komentarz"));
+        Comment comment3 = commentRepository.save(new Comment("Ta książka jest ok"));
+
+        User user1 = new User("Tomek", "Czornak", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+                .format(new Date()), List.of(comment3));
+        User user2 = new User("Marek", "Nowakowski", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+                .format(new Date()), List.of(comment1, comment2));
+        userRepository.saveAll(List.of(user1,user2));
+        commentRepository.saveAll(List.of(comment1, comment2, comment3));
+
+        Book book1 = new Book("Spring w Akcji", author1, List.of(comment2));
+        Book book2 = new Book("Java", author2, List.of(comment1));
+        Book book3 = new Book("Programowanie funkcyjne", author2, List.of(comment3));
+        bookRepository.saveAll(List.of(book1, book2, book3));
+        commentRepository.saveAll(List.of(comment1, comment2, comment3));
+
+>>>>>>> Stashed changes
     }
 }

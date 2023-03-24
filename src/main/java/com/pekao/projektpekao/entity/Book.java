@@ -17,6 +17,12 @@ public class Book {
     public Book(String title, Author author) {
         this.title = title;
         this.author = author;
+<<<<<<< Updated upstream
+=======
+
+        commentList.forEach(comment -> comment.setBook(this));
+        this.commentList = commentList;
+>>>>>>> Stashed changes
     }
 
     public String getTitle() {
