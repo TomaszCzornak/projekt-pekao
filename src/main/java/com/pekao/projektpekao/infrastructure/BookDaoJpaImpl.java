@@ -17,8 +17,8 @@ public class BookDaoJpaImpl implements BookDao {
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<Book> findAllBooks() {
+        return bookRepository.findAllBooks();
     }
 
     @Override
