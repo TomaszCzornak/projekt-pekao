@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookDao {
-    List<Book> findAll();
+    List<Book> findAllBooks();
     Optional<Book> findById(Long id);
     void deleteById(Long id);
     Book addBook(Book book);

@@ -18,7 +18,7 @@ public class BookService {
         this.bookDaoJpa = bookDaoJpa;
     }
     public List<Book> findAllBooks() {
-        return bookDaoJpa.findAll();
+        return bookDaoJpa.findAllBooks();
     }
     public Optional<Book> findBookById(Long id) {
         return bookDaoJpa.findById(id);
