@@ -1,6 +1,7 @@
 package com.pekao.projektpekao.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -8,10 +9,13 @@ public class ElectronicJournal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private Date date;
+    private String created = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+            .format(new Date());
     private String name;
     @ManyToOne
     private User user;
+    private EventType eventType;
+
 
     public enum EventType {
         TO_DO,
@@ -20,24 +24,26 @@ public class ElectronicJournal {
         WIP;
     }
     public ElectronicJournal(EventType eventType) {
+        this.eventType = eventType;
    }
 
     public ElectronicJournal() {
 
     }
 
-    public ElectronicJournal(Date date, String name, User user, EventType eventType) {
-        this.date = new Date();
+    public ElectronicJournal(String created, String name, User user, EventType eventType) {
+        this.created = created;
         this.name = name;
         this.user = user;
+        this.eventType = eventType;
     }
 
-    public Date getDate() {
-        return date;
+    public String getCreated() {
+        return created;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
     public String getName() {
@@ -64,4 +70,13 @@ public class ElectronicJournal {
     public long getId() {
         return id;
     }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
 }

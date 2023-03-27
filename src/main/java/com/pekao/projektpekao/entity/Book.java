@@ -11,31 +11,31 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Author author;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> commentList;
     @OneToOne(cascade = CascadeType.ALL)
     private ElectronicJournal electronicJournal;
-
+    private Publisher publisher;
 
     public enum Publisher {
         WYDAWNICTWO_LITERACKIE,
         PWN,
         ZNAK,
-        CZARNE,
         AGORA,
-        MUZA
     }
 
     public Book() {
     }
 
+
+
     public Book(String title, Author author, List<Comment> commentList,
-                ElectronicJournal electronicJournal, Publisher publisher) {
+                Publisher publisher) {
         this.title = title;
         this.author = author;
-
+        this.publisher = publisher;
         commentList.forEach(comment -> comment.setBook(this));
         this.commentList = commentList;
         this.electronicJournal = createElectronicJournalEventType(publisher);
@@ -50,9 +50,10 @@ public class Book {
 
     public static ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
             return switch (publisher) {
-                case WYDAWNICTWO_LITERACKIE -> new ElectronicJournal(MANAGER);
-                case PWN -> new ElectronicJournal(DONE);
-                case ZNAK -> new ElectronicJournal(TO_DO);
+                case WYDAWNICTWO_LITERACKIE -> new ElectronicJournal(ElectronicJournal.EventType.MANAGER);
+                case PWN -> new ElectronicJournal(ElectronicJournal.EventType.DONE);
+                case ZNAK -> new ElectronicJournal(ElectronicJournal.EventType.TO_DO);
+                case AGORA -> new ElectronicJournal(WIP);
                 default -> throw new IllegalArgumentException("Invalid example: " + publisher);
             };
         }
@@ -92,5 +93,12 @@ public class Book {
     }
     public ElectronicJournal getElectronicJournal() {
         return electronicJournal;
+    }
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }

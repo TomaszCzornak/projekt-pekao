@@ -1,5 +1,6 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.ElectronicJournal;
 import com.pekao.projektpekao.infrastructure.ElectronicJournalDao;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,7 @@ public class ElectronicJournalService {
         return electronicJournalDao.addElectronicJournal(electronicJournal);
     }
 
+    public void updateElectronicJournal(Long id, ElectronicJournal electronicJournal) {
+        electronicJournalDao.addElectronicJournal(electronicJournal);
+    }
 }
