@@ -32,7 +32,7 @@ public class Book {
 
 
     public Book(String title, Author author, List<Comment> commentList,
-                Publisher publisher) {
+                ElectronicJournal electronicJournal, Publisher publisher) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
