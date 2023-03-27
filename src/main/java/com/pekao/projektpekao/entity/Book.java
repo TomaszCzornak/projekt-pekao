@@ -17,6 +17,7 @@ public class Book {
     private List<Comment> commentList;
     @OneToOne(cascade = CascadeType.ALL)
     private ElectronicJournal electronicJournal;
+    @Enumerated(EnumType.STRING)
     private Publisher publisher;
 
     public enum Publisher {
