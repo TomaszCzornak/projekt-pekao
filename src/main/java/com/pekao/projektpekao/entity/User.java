@@ -1,7 +1,5 @@
 package com.pekao.projektpekao.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +16,7 @@ public class User {
     private String email;
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
             .format(new Date());
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Comment> commentList;
 
