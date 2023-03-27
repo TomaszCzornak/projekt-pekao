@@ -44,10 +44,12 @@ public class Book {
     public Book(String title, Author author, List<Comment> commentList, Publisher publisher) {
         this.title = title;
         this.author = author;
+
         commentList.forEach(comment -> comment.setBook(this));
         this.commentList = commentList;
         this.publisher = publisher;
         this.electronicJournal = createElectronicJournalEventType(publisher);
+
 
     }
 
