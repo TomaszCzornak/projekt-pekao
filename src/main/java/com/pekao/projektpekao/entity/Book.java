@@ -35,21 +35,24 @@ public class Book {
                 ElectronicJournal electronicJournal, Publisher publisher) {
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
         commentList.forEach(comment -> comment.setBook(this));
         this.commentList = commentList;
         this.electronicJournal = createElectronicJournalEventType(publisher);
+        this.publisher = publisher;
     }
 
-    public Book(String title, Author author, List<Comment> commentList) {
+    public Book(String title, Author author, List<Comment> commentList, Publisher publisher) {
         this.title = title;
         this.author = author;
         commentList.forEach(comment -> comment.setBook(this));
         this.commentList = commentList;
+        this.publisher = publisher;
+        this.electronicJournal = createElectronicJournalEventType(publisher);
+
     }
 
-    public static ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
-            return switch (publisher) {
+    private ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
+        return switch (publisher) {
                 case WYDAWNICTWO_LITERACKIE -> new ElectronicJournal(ElectronicJournal.EventType.MANAGER);
                 case PWN -> new ElectronicJournal(ElectronicJournal.EventType.DONE);
                 case ZNAK -> new ElectronicJournal(ElectronicJournal.EventType.TO_DO);

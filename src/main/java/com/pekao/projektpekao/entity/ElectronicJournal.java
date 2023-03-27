@@ -15,8 +15,6 @@ public class ElectronicJournal {
     @ManyToOne
     private User user;
     private EventType eventType;
-
-
     public enum EventType {
         TO_DO,
         DONE,
@@ -32,7 +30,8 @@ public class ElectronicJournal {
     }
 
     public ElectronicJournal(String created, String name, User user, EventType eventType) {
-        this.created = created;
+        this.created = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+                .format(new Date());
         this.name = name;
         this.user = user;
         this.eventType = eventType;
