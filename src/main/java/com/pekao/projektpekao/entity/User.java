@@ -16,6 +16,7 @@ public class User {
     private String email;
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
             .format(new Date());
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Comment> commentList;
 

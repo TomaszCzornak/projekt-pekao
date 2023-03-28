@@ -14,6 +14,7 @@ public class ElectronicJournal {
     private String name;
     @ManyToOne
     private User user;
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
     public enum EventType {
         TO_DO,

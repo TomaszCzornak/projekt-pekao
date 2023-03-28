@@ -32,6 +32,7 @@ public class ProjektPekaoApplication implements CommandLineRunner {
     }
 
 
+
         @Override
         public void run (String...args) {
 //            Author author1 = new Author("Craig", "Walls");
@@ -64,4 +65,5 @@ public class ProjektPekaoApplication implements CommandLineRunner {
 //            commentRepository.saveAll(List.of(comment1, comment2, comment3));
 
         }
+
     }
