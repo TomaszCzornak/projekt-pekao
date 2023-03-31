@@ -14,9 +14,29 @@ public class UserService {
     @Resource(name = "UserDaoJpaImpl")
     private final UserDao userDaoJpa;
 
+    enum EventType {
+        X, Y, Z;
+    }
+
     public UserService(UserDao userDaoJpa) {
         this.userDaoJpa = userDaoJpa;
     }
+
+//    public User createUser(EventType eventType) {
+//        switch(eventType) {
+//            case X:
+//                // code block
+//                break;
+//            case Y:
+//                // code block
+//                break;
+//            case Z:
+//                // code block
+//                break;
+//            default:
+//                // code block
+//        }
+//    }
 
     public List findAllUsers() {
         return userDaoJpa.findAll();
