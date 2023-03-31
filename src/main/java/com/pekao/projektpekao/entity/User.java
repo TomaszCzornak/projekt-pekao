@@ -16,7 +16,8 @@ public class User {
     private String email;
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
             .format(new Date());
-    @OneToMany
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Comment> commentList;
 
     public User() {
@@ -27,6 +28,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.createdAt = createdAt;
+
+        commentList.forEach(comment -> comment.setUser(this));
         this.commentList = commentList;
 
     }
@@ -37,6 +40,9 @@ public class User {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+        // get entity
+        // pass entity to a service
+        //
     }
 
     public String getFirstName() {
