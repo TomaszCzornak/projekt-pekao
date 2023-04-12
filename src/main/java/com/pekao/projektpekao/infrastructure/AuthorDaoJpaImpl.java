@@ -5,6 +5,7 @@ import com.pekao.projektpekao.repository.AuthorRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository("AuthorDaoJpaImpl")
 public class AuthorDaoJpaImpl implements AuthorDao {
@@ -21,8 +22,8 @@ public class AuthorDaoJpaImpl implements AuthorDao {
     }
 
     @Override
-    public Author findById(final Long id) {
-        return authorRepository.findById(id).orElseThrow();
+    public Optional<Author> findById(final Long id) {
+        return authorRepository.findById(id);
     }
 
     @Override
@@ -38,5 +39,10 @@ public class AuthorDaoJpaImpl implements AuthorDao {
     @Override
     public void deleteAuthorById(Long id) {
         authorRepository.deleteById(id);
+    }
+
+    @Override
+    public Author findByLastName(String lastName) {
+        return authorRepository.findAuthorByLastName(lastName);
     }
 }

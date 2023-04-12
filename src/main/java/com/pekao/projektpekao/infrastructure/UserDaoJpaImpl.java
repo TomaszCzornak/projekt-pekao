@@ -27,7 +27,7 @@ public class UserDaoJpaImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public User findByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 

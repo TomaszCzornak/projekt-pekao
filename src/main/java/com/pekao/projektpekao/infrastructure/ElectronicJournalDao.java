@@ -12,4 +12,5 @@ public interface ElectronicJournalDao {
 
     ElectronicJournal addElectronicJournal(ElectronicJournal electronicJournal);
     void deleteElectronicJournalById(Long id);
+    ElectronicJournal findByEventType(ElectronicJournal.EventType eventType);
 }

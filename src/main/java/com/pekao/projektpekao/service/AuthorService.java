@@ -24,7 +24,10 @@ public class AuthorService {
     }
 
     public Author findAuthorById(Long id) {
-        return authorDaoJpa.findById(id);
+        return authorDaoJpa.findById(id).orElseThrow(()->new IllegalStateException("Cannot find an author with ID: " + id));
+    }
+    public Author findAuthorByLastName(String lastName) {
+        return authorDaoJpa.findByLastName(lastName);
     }
 
     public void removeAuthorById(Long id) {
@@ -36,7 +39,7 @@ public class AuthorService {
     }
 
     public Author updateAuthor(Long id, Author author) {
-        Author author1 = authorDaoJpa.findById(id);
-        return authorDaoJpa.addAuthor(author1);
+        authorDaoJpa.findById(id);
+        return authorDaoJpa.addAuthor(author);
     }
 }

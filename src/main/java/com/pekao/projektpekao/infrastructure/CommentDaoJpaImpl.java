@@ -1,12 +1,12 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository("CommentDaoJpaImpl")
 public class CommentDaoJpaImpl implements CommentDao {
 
@@ -23,7 +23,7 @@ public class CommentDaoJpaImpl implements CommentDao {
 
     @Override
     public Optional<Comment> findById(Long id) {
-        return commentRepository.findById(id);
+        return commentRepository.findCommentById(id);
     }
 
 
@@ -40,5 +40,10 @@ public class CommentDaoJpaImpl implements CommentDao {
     @Override
     public Comment updateComment(Comment comment) {
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public Optional<Comment> findCommentByContent(String content) {
+        return commentRepository.findCommentByContent(content);
     }
 }

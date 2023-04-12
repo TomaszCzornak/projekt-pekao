@@ -2,13 +2,9 @@ package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.service.CommentService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -25,7 +21,7 @@ public class CommentController {
         return commentService.findAllComments();
     }
     @GetMapping("/{id}")
-    public Optional<Comment> getCommentById(@PathVariable("id") Long id) {
+    public Comment getCommentById(@PathVariable("id") Long id) {
         return commentService.findCommentById(id);
     }
 

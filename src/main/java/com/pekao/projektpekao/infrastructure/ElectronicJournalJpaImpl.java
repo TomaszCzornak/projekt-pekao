@@ -35,4 +35,9 @@ public class ElectronicJournalJpaImpl implements ElectronicJournalDao {
         electronicJournalRepository.deleteById(id);
 
     }
+
+    @Override
+    public ElectronicJournal findByEventType(ElectronicJournal.EventType eventType) {
+        return electronicJournalRepository.findElectronicJournalByEventType(eventType);
+    }
 }

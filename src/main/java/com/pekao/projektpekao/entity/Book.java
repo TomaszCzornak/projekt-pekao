@@ -1,22 +1,27 @@
 package com.pekao.projektpekao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
-import static com.pekao.projektpekao.entity.ElectronicJournal.EventType.*;
+import static com.pekao.projektpekao.entity.ElectronicJournal.EventType.WIP;
 
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @org.hibernate.annotations.ForeignKey(name = "none")
     private Author author;
-    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Comment> commentList;
     @OneToOne(cascade = CascadeType.ALL)
     private ElectronicJournal electronicJournal;
+    @Enumerated(EnumType.STRING)
     private Publisher publisher;
 
     public enum Publisher {
@@ -51,7 +56,7 @@ public class Book {
 
     }
 
-    private ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
+    public static ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
         return switch (publisher) {
                 case WYDAWNICTWO_LITERACKIE -> new ElectronicJournal(ElectronicJournal.EventType.MANAGER);
                 case PWN -> new ElectronicJournal(ElectronicJournal.EventType.DONE);

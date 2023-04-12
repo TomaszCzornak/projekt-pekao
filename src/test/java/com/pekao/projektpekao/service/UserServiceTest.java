@@ -1,87 +1,116 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.repository.CommentRepository;
+import com.pekao.projektpekao.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import static com.pekao.projektpekao.service.UserService.EventType.X;
-import static com.pekao.projektpekao.service.UserService.EventType.Y;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
-// Test integracyjny
 @SpringBootTest
+@TestPropertySource("/application-test.properties") //alternative in case of test issues
 class UserServiceTest {
 
     @Autowired
     private UserService userService;
-
-    @BeforeEach
-    void setUp() {
-        // stworzyc dane
-        System.out.println("setUp");
-    }
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @AfterEach
     void tearDown() {
-        // wyczyscic
-        System.out.println("tearDown");
+        userRepository.deleteAll();
+        commentRepository.deleteAll();
     }
 
     @Test
     void findAllUsers() {
-        // given
-        // when
-        User user = userService.addUser(new User("Adrian", "Kowalski", "xyz@gmail.com", "2023-01-01", List.of()));
-        // then
-        assertThat(user).extracting(User::getFirstName, User::getLastName, User::getEmail)
-                .containsExactly("Adrian", "Kowalski", "xyz@gmail.com");
-    }
+        //given
+        Comment commentToSave1 = commentRepository.save(new Comment("Testowy komentarz 1"));
+        Comment commentToSave2 = commentRepository.save(new Comment("Testowy komentarz 2"));
+        Comment commentToSave3 = commentRepository.save(new Comment("Testowy komentarz 3"));
+//        User user1 = new User("Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+//                .format(new Date()), List.of(commentToSave1));
+//        User user2 = new User("Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+//                .format(new Date()), List.of(commentToSave2, commentToSave3));
+        User user1 = new User.Builder(1L, "Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com").commentList(List.of(commentToSave1, commentToSave2)).build();
+        User user2 = new User.Builder(2L, "Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com").commentList(List.of(commentToSave3)).build();
 
-    @Test
-    void shoudlCreateUserWhenEventTypeIsY() {
-        // given
-        UserService.EventType eventType = Y;
-        // when
-        User user = userService.createUser(eventType);
-        // then
-        assertThat(user);
-    }
-
-    @Test
-    void shoudlCreateUserWhenEventTypeIsX() {
-        // given
-        UserService.EventType eventType = X;
-        // when
-        User user = userService.createUser(eventType);
-        // then
-        assertThat(user);
+        //when
+        List<User> usersFound = userRepository.saveAll(List.of(user1, user2));
+        //then
+        assertThat(usersFound, hasSize(2));
     }
 
     @Test
     void findUserById() {
+        //given
+        User userToSave = new User.Builder(1L, "Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com").build();
+        User userSaved = userRepository.save(userToSave);
+        //when
+        User userFound = userService.findUserById(userSaved.getId());
+        //then
+        assertThat(userFound).extracting("firstName", "lastName", "email")
+                .doesNotContainNull()
+                .containsExactly("Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com");
     }
 
     @Test
     void findUserByEmail() {
+        //given
+        User userToSave = new User.Builder(1L, "Tomasz", "Czornak", "tomek@gmail.com").build();
+        User userSaved = userRepository.save(userToSave);
+        //when
+        User userFound = userService.findUserByEmail("tomek@gmail.com");
+        //then
+        assertEquals(userSaved.getEmail(), userFound.getEmail());
     }
 
     @Test
     void removeUserById() {
+        //given
+        User userToSave = new User.Builder(1L, "Tomasz", "Czornak", "tomek@gmail.com").build();
+        User userSaved = userRepository.save(userToSave);
+        //when
+        userService.removeUserById(userSaved.getId());
+        //then
+        assertThrows(IllegalStateException.class, () -> userService.findUserById(userSaved.getId()));
     }
 
     @Test
     void addUser() {
+        //given
+        User userToSave = new User.Builder(1L, "Marek", "Nowak", "marek@nowak.com").build();
+        //when
+        User userSaved = userService.addUser(userToSave);
+        //then
+        assertThat(userSaved).extracting("firstName", "lastName", "email")
+                .doesNotContainNull()
+                .containsExactly("Marek", "Nowak", "marek@nowak.com");
     }
 
     @Test
     void updateUser() {
+        //given
+        User userToSave = new User.Builder(1L, "Marek", "Nowak", "marek@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
+        User userSaved = userRepository.save(userToSave);
+        User userChanged = new User.Builder(1L, "Marek", "Nowak", "marlon@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
+        //when
+        User userChangedFound = userService.updateUser(userChanged.getId(), userChanged);
+        //then
+        assertEquals(userChangedFound.getEmail(), userChanged.getEmail());
+
     }
 }

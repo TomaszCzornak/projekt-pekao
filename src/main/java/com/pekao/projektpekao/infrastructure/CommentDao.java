@@ -1,6 +1,5 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.Comment;
 
 import java.util.List;
@@ -13,4 +12,5 @@ public interface CommentDao {
     void deleteCommentById(Long id);
     Comment addComment(Comment comment);
     Comment updateComment(Comment comment);
+    Optional<Comment> findCommentByContent(String content);
 }

@@ -1,40 +1,43 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.exception.NotFoundException;
-import com.pekao.projektpekao.infrastructure.BookDao;
 import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.infrastructure.BookDao;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
     @Resource(name = "BookDaoJpaImpl")
     private final BookDao bookDaoJpa;
 
-    public BookService( BookDao bookDaoJpa) {
+    public BookService(@Qualifier("BookDaoJpaImpl") BookDao bookDaoJpa) {
         this.bookDaoJpa = bookDaoJpa;
     }
+
     public List<Book> findAllBooks() {
         return bookDaoJpa.findAllBooks();
     }
-    public Optional<Book> findBookById(Long id) {
-        return bookDaoJpa.findById(id);
+
+    public Book findBookById(Long id) {
+        return bookDaoJpa.findById(id).orElseThrow(()->new IllegalStateException("Cannot find book with id: " + id));
     }
-    private Book findOrThrow(Long id) {
-        return bookDaoJpa.findById(id).orElseThrow(
-                        () -> new NotFoundException("Nie ma książki o id " + id ));
+
+    public Book findBookByTitle(String title) {
+        return bookDaoJpa.findByTitle(title).orElseThrow(()->new IllegalStateException("Cannot find book with title "+ title));
     }
+
     public void removeBookById(Long id) {
         bookDaoJpa.deleteById(id);
     }
+
     public Book addBook(Book book) {
         return bookDaoJpa.addBook(book);
     }
-    public void updateBook(Long id,Book book) {
-        findOrThrow(id);
+
+    public void updateBook(Book book) {
         bookDaoJpa.addBook(book);
     }
 }

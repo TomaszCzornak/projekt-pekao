@@ -1,6 +1,5 @@
 package com.pekao.projektpekao.controller;
 
-import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.ElectronicJournal;
 import com.pekao.projektpekao.service.ElectronicJournalService;
 import org.springframework.http.HttpStatus;
@@ -9,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/eJournal")
@@ -27,7 +25,7 @@ public class ElectronicJournalController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ElectronicJournal> getBookById(@PathVariable("id") Long id) {
+    public ElectronicJournal getBookById(@PathVariable("id") Long id) {
         return electronicJournalService.findElectronicJournalById(id);
     }
 

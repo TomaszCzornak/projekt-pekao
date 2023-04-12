@@ -23,8 +23,14 @@ public class BookDaoJpaImpl implements BookDao {
 
     @Override
     public Optional<Book> findById(Long id) {
-        return bookRepository.findById(id);
+        return bookRepository.getBookById(id);
     }
+
+    @Override
+    public Optional<Book> findByTitle(String title) {
+        return bookRepository.getBookByTitle(title);
+    }
+
 
     @Override
     public void deleteById(Long id) {
@@ -36,6 +42,7 @@ public class BookDaoJpaImpl implements BookDao {
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
+
 
     @Override
     public Book updateBook(Book book) {

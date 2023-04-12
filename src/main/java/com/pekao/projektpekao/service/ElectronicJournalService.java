@@ -1,13 +1,11 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.Book;
 import com.pekao.projektpekao.entity.ElectronicJournal;
 import com.pekao.projektpekao.infrastructure.ElectronicJournalDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ElectronicJournalService {
@@ -23,8 +21,8 @@ public class ElectronicJournalService {
         return electronicJournalDao.findAll();
     }
 
-    public Optional<ElectronicJournal> findElectronicJournalById(Long id) {
-        return electronicJournalDao.findById(id);
+    public ElectronicJournal findElectronicJournalById(Long id) {
+        return electronicJournalDao.findById(id).orElseThrow(()->new IllegalStateException("Cannot find electronic Journal with id " + id));
     }
 
     public void removeElectronicJournalById(Long id) {

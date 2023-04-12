@@ -7,12 +7,12 @@ import java.util.Date;
 @Entity
 public class ElectronicJournal {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String created = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
             .format(new Date());
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
     @Enumerated(EnumType.STRING)
     private EventType eventType;

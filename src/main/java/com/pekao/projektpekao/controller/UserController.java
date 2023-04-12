@@ -5,7 +5,6 @@ import com.pekao.projektpekao.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -23,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable("id") Long id) {
+    public User getUserById(@PathVariable("id") Long id) {
         return userService.findUserById(id);
     }
 
