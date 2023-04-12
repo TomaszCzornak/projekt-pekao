@@ -21,26 +21,31 @@ public class AuthorController {
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
+
     @GetMapping("/all")
     public List<Author> getAllAuthors() {
         LOGGER.info("Printing all authors");
         return authorService.findAllAuthors();
     }
+
     @GetMapping("/{id}")
     public Author getAuthorById(@PathVariable("id") Long id) {
         return authorService.findAuthorById(id);
     }
+
     @DeleteMapping("/{id}")
     public void deleteAuthorById(@PathVariable("id") Long id) {
         authorService.removeAuthorById(id);
     }
+
     @PostMapping()
     public Author postAuthor(@RequestBody Author author) {
         return authorService.addAuthor(author);
     }
+
     @PutMapping("/{id}")
     public void putAuthor(@PathVariable("id") Long id, @RequestBody Author author) {
-        if(!id.equals(author.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+        if (!id.equals(author.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         authorService.updateAuthor(id, author);
     }
 }

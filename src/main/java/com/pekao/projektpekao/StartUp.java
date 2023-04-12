@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,10 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
     private final UserRepository userRepository;
     private final ElectronicJournalRepository electronicJournalRepository;
 
-    public StartUp(BookRepository bookRepository, AuthorRepository authorRepository, CommentRepository commentRepository, UserRepository userRepository, ElectronicJournalRepository electronicJournalRepository) {
+    public StartUp(
+            BookRepository bookRepository, AuthorRepository authorRepository, CommentRepository commentRepository,
+            UserRepository userRepository, ElectronicJournalRepository electronicJournalRepository
+    ) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.commentRepository = commentRepository;
@@ -45,15 +49,32 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
             Comment comment1 = commentRepository.save(new Comment("Dupa Jasiu"));
             Comment comment2 = commentRepository.save(new Comment("Kolejny komentarz"));
             Comment comment3 = commentRepository.save(new Comment("Ta książka jest ok"));
-//            User user1 = new User("Tomek", "Czornak", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-//                    .format(new Date()), List.of(comment3));
-//            User user2 = new User("Marek", "Nowakowski", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-//                    .format(new Date()), List.of(comment1, comment2));
-            User user1 = new User.Builder(1L,"Tomek", "Czornak", "tomek@gmail.com").build();
-            User user2 = new User.Builder(2L,"Marek", "Nowakowski", "mareknowakowski@gmail.com").build();
+
+            final User user1 = User.builder()
+                    .firstName("Tomek")
+                    .lastName("Czornak")
+                    .email("tomek@gmail.com")
+                    .commentList(List.of(
+                            comment1,
+                            comment2,
+                            comment3
+                    ))
+                    .createdAt(LocalDate.now())
+                    .buildNewEntity();
+
+            final User user2 = User.builder()
+                    .firstName("Marek")
+                    .lastName("Nowakowski")
+                    .email("mareknowakowski@gmail.com")
+                    .commentList(List.of(
+                            comment1,
+                            comment2,
+                            comment3
+                    ))
+                    .createdAt(LocalDate.now())
+                    .buildNewEntity();
 
             userRepository.saveAll(List.of(user1, user2));
-            commentRepository.saveAll(List.of(comment1, comment2, comment3));
 
             Book book1 = new Book("Spring w Akcji", author1, List.of(comment2), Book.Publisher.ZNAK);
             Book book2 = new Book("Java", author2, List.of(comment1), Book.Publisher.PWN);

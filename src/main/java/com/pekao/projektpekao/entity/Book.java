@@ -14,10 +14,10 @@ public class Book {
     private Long id;
     private String title;
     @ManyToOne(fetch = FetchType.LAZY)
-    @org.hibernate.annotations.ForeignKey(name = "none")
     private Author author;
+    // TODO delete after DTO
     @JsonIgnore
-    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
     private List<Comment> commentList;
     @OneToOne(cascade = CascadeType.ALL)
     private ElectronicJournal electronicJournal;

@@ -35,8 +35,7 @@ public class UserService {
         return userDaoJpa.addUser(user);
     }
 
-    public User updateUser(Long id, User user) {
-        userDaoJpa.findById(id);
+    public User updateUser(User user) {
         return userDaoJpa.updateUser(user);
     }
 

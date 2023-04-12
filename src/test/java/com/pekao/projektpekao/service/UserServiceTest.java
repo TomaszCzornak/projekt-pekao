@@ -1,5 +1,6 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.UserTestUtility;
 import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.entity.User;
 import com.pekao.projektpekao.repository.CommentRepository;
@@ -31,27 +32,42 @@ class UserServiceTest {
 
     @AfterEach
     void tearDown() {
-        userRepository.deleteAll();
         commentRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
     void findAllUsers() {
-        //given
-        Comment commentToSave1 = commentRepository.save(new Comment("Testowy komentarz 1"));
-        Comment commentToSave2 = commentRepository.save(new Comment("Testowy komentarz 2"));
-        Comment commentToSave3 = commentRepository.save(new Comment("Testowy komentarz 3"));
-//        User user1 = new User("Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-//                .format(new Date()), List.of(commentToSave1));
-//        User user2 = new User("Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
-//                .format(new Date()), List.of(commentToSave2, commentToSave3));
-        User user1 = new User.Builder(1L, "Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com").commentList(List.of(commentToSave1, commentToSave2)).build();
-        User user2 = new User.Builder(2L, "Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com").commentList(List.of(commentToSave3)).build();
+//        //given
+//        Comment commentToSave1 = commentRepository.save(new Comment("Testowy komentarz 1"));
+//        Comment commentToSave2 = commentRepository.save(new Comment("Testowy komentarz 2"));
+//        Comment commentToSave3 = commentRepository.save(new Comment("Testowy komentarz 3"));
+////        User user1 = new User("Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+////                .format(new Date()), List.of(commentToSave1));
+////        User user2 = new User("Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z")
+////                .format(new Date()), List.of(commentToSave2, commentToSave3));
+//        User user1 = new User.Builder(1L, "Testowe_Imie1", "Testowe_Nazwisko1", "tomek@gmail.com").commentList(List.of(commentToSave1, commentToSave2)).build();
+//        User user2 = new User.Builder(2L, "Testowe_Imie2", "Testowe_Nazwisko2", "mareknowakowski@gmail.com").commentList(List.of(commentToSave3)).build();
+//
+//        //when
+//        List<User> usersFound = userRepository.saveAll(List.of(user1, user2));
+//        //then
+//        assertThat(usersFound, hasSize(2));
 
+        //given
+        final List<User> usersToSave = List.of(
+                UserTestUtility.createUser1WithComments(), UserTestUtility.createUser2WithComments()
+        );
         //when
-        List<User> usersFound = userRepository.saveAll(List.of(user1, user2));
+        List<User> usersFound = userRepository.saveAll(usersToSave);
         //then
         assertThat(usersFound, hasSize(2));
+        assertThat(
+                usersFound.stream().anyMatch(n -> n.getFirstName().equals(usersToSave.get(0).getFirstName()))
+        ).isTrue();
+        assertThat(
+                usersFound.stream().anyMatch(n -> n.getFirstName().equals(usersToSave.get(1).getFirstName()))
+        ).isTrue();
     }
 
     @Test
@@ -103,14 +119,24 @@ class UserServiceTest {
 
     @Test
     void updateUser() {
-        //given
-        User userToSave = new User.Builder(1L, "Marek", "Nowak", "marek@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
-        User userSaved = userRepository.save(userToSave);
-        User userChanged = new User.Builder(1L, "Marek", "Nowak", "marlon@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
-        //when
-        User userChangedFound = userService.updateUser(userChanged.getId(), userChanged);
-        //then
-        assertEquals(userChangedFound.getEmail(), userChanged.getEmail());
+//        //given
+//        User userToSave = new User.Builder(1L, "Marek", "Nowak", "marek@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
+//        User userSaved = userRepository.save(userToSave);
+//        User userChanged = new User.Builder(1L, "Marek", "Nowak", "marlon@nowak.com").commentList(List.of(new Comment("Testowy komentarz"))).build();
+//        //when
+//        User userFound = userService.updateUser(userChanged.getId(), userChanged);
+//        //then
+//        assertEquals(userFound.getEmail(), userChanged.getEmail());
 
+        //given
+        User userSaved = userRepository.save(UserTestUtility.createUser1WithComments());
+        User userWithDataToSave = User.builder()
+                .from(userSaved)
+                .email(userSaved.getEmail() + ".org")
+                .build();
+        //when
+        User userFound = userService.updateUser(userWithDataToSave);
+        //then
+        assertEquals(userFound.getEmail(), userWithDataToSave.getEmail());
     }
 }
