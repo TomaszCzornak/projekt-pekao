@@ -63,7 +63,7 @@ class AuthorServiceTest {
         //when
         Author authorFound = authorService.findAuthorById(authorToSave.getId());
         //then
-        assertThat(authorFound).extracting("id","firstName", "lastName")
+        assertThat(authorFound).extracting(Author::getId, Author::getFirstName, Author::getLastName)
                 .doesNotContainNull()
                 .containsExactly(savedAuthor.getId(),"Mary", "Jane");
 

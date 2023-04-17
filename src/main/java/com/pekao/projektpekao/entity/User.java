@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Entity
@@ -17,7 +18,7 @@ public class User {
     private String email;
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Comment> commentList;
 
     protected User() {}
@@ -97,7 +98,14 @@ public class User {
                 throw new IllegalStateException("Id must be null if you want create new Entity");
             }
 
-            return new User(null, firstName, lastName, email, createdAt, commentList);
+            final User user = new User(null, firstName, lastName, email, createdAt, commentList);
+
+            Optional.ofNullable(user.commentList)
+                    .ifPresent(comments ->
+                        comments.forEach(comment -> comment.setUser(user))
+                    );
+
+            return user;
         }
     }
 

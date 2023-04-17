@@ -1,8 +1,12 @@
 package com.pekao.projektpekao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Comment {
@@ -10,11 +14,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private User user;
-    @ManyToOne
-//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
 
     protected Comment() {
@@ -96,5 +98,9 @@ public class Comment {
 
     public Book getBook() {
         return book;
+    }
+
+    public void setUser(final User user) {
+        this.user = user;
     }
 }

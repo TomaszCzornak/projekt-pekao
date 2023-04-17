@@ -34,6 +34,18 @@ public class CommentController {
     }
     @PutMapping()
     public Comment postComment(@RequestBody Comment comment) {
+
+        // \/ DTO           KLIENT UŻYWAJĄCY PRZEGLĄDARKI
+        // \/ DTO/PARAMS    Controller                      /\ DTO/RESPONSE
+        // \/ DTO/ENTITY    Service                         /\ DTO/PARAMS
+        // \/ ENTITY        Repository                      /\ ENTITY/DTO
+        //                  DB                              /\ ENTITY
+
+        // Różnice między DTO/PARAMS/RESULT/REQUEST/RESPONSE : !!!NIE MA!!! tak samo jak nie ma różnic między @Bean/@Repository/@Component/@Service
+
+        // mappery
+        // mapper DTO -> ENTITY - service
+        // mapper REQUEST/RESPONSE -> RESULT/PARAMS - controller
         return commentService.addComment(comment);
     }
     @PutMapping("/{id}")

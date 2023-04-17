@@ -38,11 +38,11 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Optional<Author> authorCheck = authorRepository.findById(1L);
-        Optional<Comment> commentCheck = commentRepository.findById(1L);
-        Optional<User> userCheck = userRepository.findById(1L);
-        Optional<Book> bookCheck = bookRepository.findById(1L);
-        if (authorCheck.isEmpty() || commentCheck.isEmpty() || userCheck.isEmpty() || bookCheck.isEmpty()) {
+        boolean authorsAreEmpty = authorRepository.findAll().isEmpty();
+        boolean commentsAreEmpty = commentRepository.findAll().isEmpty();
+        boolean usersAreEmpty = userRepository.findAll().isEmpty();
+        boolean booksAreEmpty = bookRepository.findAll().isEmpty();
+        if (authorsAreEmpty || commentsAreEmpty || usersAreEmpty || booksAreEmpty) {
             final Author author1 = Author.builder()
                     .withFirstName("Autor_Mock")
                     .withLastName("Nazwisko_Mock")
@@ -61,13 +61,12 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
             final Comment comment3 = Comment.builder()
                     .createContent("Mockowy komentarz 3")
                     .buildNewEntity();
-            List<Comment> commentsSaved = commentRepository.saveAll(List.of(comment1, comment2, comment3));
 
             final User user1 = User.builder()
                     .firstName("Tomek")
                     .lastName("Czornak")
                     .email("tomek@gmail.com")
-                    .commentList(commentsSaved)
+                    .commentList(List.of(comment1, comment2))
                     .createdAt(LocalDate.now())
                     .buildNewEntity();
 
@@ -75,8 +74,7 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .firstName("Marek")
                     .lastName("Nowakowski")
                     .email("mareknowakowski@gmail.com")
-                    .commentList(commentsSaved
-                    )
+                    .commentList(List.of(comment3))
                     .createdAt(LocalDate.now())
                     .buildNewEntity();
 

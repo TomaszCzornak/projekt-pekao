@@ -36,7 +36,7 @@ class UserServiceTest {
 
     @Test
     void findAllUsers() {
-//        //given
+        //given
         final List<User> usersToSave = List.of(
                 UserTestUtility.createUser1WithComments(), UserTestUtility.createUser2WithComments()
         );
@@ -45,7 +45,7 @@ class UserServiceTest {
         //then
         assertThat(usersFound, hasSize(2));
         assertThat(
-                usersFound.stream().anyMatch(n -> n.getFirstName().equals(usersToSave.get(0).getFirstName()))
+                usersFound.stream().anyMatch(user -> user.getFirstName().equals(usersToSave.get(0).getFirstName()))
         ).isTrue();
         assertThat(
                 usersFound.stream().anyMatch(n -> n.getFirstName().equals(usersToSave.get(1).getFirstName()))

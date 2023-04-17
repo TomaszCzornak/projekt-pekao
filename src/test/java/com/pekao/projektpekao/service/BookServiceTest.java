@@ -121,11 +121,11 @@ class BookServiceTest {
     void findBookByTitle() {
         //given
         Author authorToSave = authorService.addAuthor(AuthorTestUtility.createAuthor("Mark", "Spencer"));
-        Book bookWithTitleToSave = bookRepository.save(BookTestUtility.createBookWithTitleAndAuthor("What's the story morning glory", authorToSave));
+        Book bookToSave = bookRepository.save(BookTestUtility.createBookWithTitleAndAuthor("What's the story morning glory", authorToSave));
         //when
-        Book bookByTitle = bookService.findBookByTitle(bookWithTitleToSave.getTitle());
+        Book foundBook = bookService.findBookByTitle(bookToSave.getTitle());
         //then
-        assertEquals(bookByTitle.getTitle(), "What's the story morning glory");
+        assertEquals(foundBook.getTitle(), bookToSave.getTitle());
     }
 
     @Test
