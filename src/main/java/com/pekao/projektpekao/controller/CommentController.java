@@ -2,9 +2,12 @@ package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.service.CommentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -35,10 +38,10 @@ public class CommentController {
     }
     @PutMapping("/{id}")
     public void putComment(@PathVariable("id") Long id, @RequestBody Comment comment) {
-//        if(!Objects.equals(id, comment.getId())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
-//        }
-        commentService.updateComment(id, comment);
+        if(!Objects.equals(id, comment.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+        }
+        commentService.updateComment(comment);
     }
 
 }

@@ -1,11 +1,7 @@
 package com.pekao.projektpekao.entity;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -46,12 +42,6 @@ public class User {
         private LocalDate createdAt;
         private List<Comment> commentList;
 
-        public Builder(Long id, String firstName, String lastName, String email) {
-            this.id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-        }
 
         public Builder() {}
 
@@ -91,7 +81,6 @@ public class User {
         }
 
         public Builder commentList(List<Comment> commentList) {
-            commentList.forEach(comment -> comment.setUser(build()));
             this.commentList = commentList;
             return this;
         }
@@ -100,7 +89,6 @@ public class User {
             if (Stream.of(id, firstName, lastName, email, createdAt, commentList).anyMatch(Objects::isNull)) {
                 throw new IllegalStateException("On of required values is null: [%s]".formatted(List.of(id, firstName, lastName, email, createdAt, commentList)));
             }
-
             return new User(id, firstName, lastName, email, createdAt, commentList);
         }
 

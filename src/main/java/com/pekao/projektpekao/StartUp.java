@@ -43,22 +43,31 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
         Optional<User> userCheck = userRepository.findById(1L);
         Optional<Book> bookCheck = bookRepository.findById(1L);
         if (authorCheck.isEmpty() || commentCheck.isEmpty() || userCheck.isEmpty() || bookCheck.isEmpty()) {
-            Author author2 = new Author("Autor_Mock", "Nazwisko_Mock");
-            Author author1 = new Author("Mock_Autor", "Mock_Nazwisko");
+            final Author author1 = Author.builder()
+                    .withFirstName("Autor_Mock")
+                    .withLastName("Nazwisko_Mock")
+                    .buildNewEntity();
+            final Author author2 = Author.builder()
+                    .withFirstName("Mock_Autor")
+                    .withLastName("Mock_Nazwisko")
+                    .buildNewEntity();
             authorRepository.saveAll(List.of(author1, author2));
-            Comment comment1 = commentRepository.save(new Comment("Dupa Jasiu"));
-            Comment comment2 = commentRepository.save(new Comment("Kolejny komentarz"));
-            Comment comment3 = commentRepository.save(new Comment("Ta książka jest ok"));
+            final Comment comment1 = Comment.builder()
+                    .createContent("Mockowy komentarz 1")
+                    .buildNewEntity();
+            final Comment comment2 = Comment.builder()
+                    .createContent("Mockowy komentarz 2")
+                    .buildNewEntity();
+            final Comment comment3 = Comment.builder()
+                    .createContent("Mockowy komentarz 3")
+                    .buildNewEntity();
+            List<Comment> commentsSaved = commentRepository.saveAll(List.of(comment1, comment2, comment3));
 
             final User user1 = User.builder()
                     .firstName("Tomek")
                     .lastName("Czornak")
                     .email("tomek@gmail.com")
-                    .commentList(List.of(
-                            comment1,
-                            comment2,
-                            comment3
-                    ))
+                    .commentList(commentsSaved)
                     .createdAt(LocalDate.now())
                     .buildNewEntity();
 
@@ -66,20 +75,32 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .firstName("Marek")
                     .lastName("Nowakowski")
                     .email("mareknowakowski@gmail.com")
-                    .commentList(List.of(
-                            comment1,
-                            comment2,
-                            comment3
-                    ))
+                    .commentList(commentsSaved
+                    )
                     .createdAt(LocalDate.now())
                     .buildNewEntity();
 
             userRepository.saveAll(List.of(user1, user2));
 
-            Book book1 = new Book("Spring w Akcji", author1, List.of(comment2), Book.Publisher.ZNAK);
-            Book book2 = new Book("Java", author2, List.of(comment1), Book.Publisher.PWN);
-            Book book3 = new Book("Programowanie funkcyjne", author2, List.of(comment3), Book.Publisher.AGORA);
-            bookRepository.saveAll(List.of(book1, book2, book3));
+            Book bookFromBuilder1 = Book.builder()
+                    .title("Spring w Akcji")
+                    .author(author1)
+                    .commentList(List.of(comment2))
+                    .publisher(Book.Publisher.ZNAK)
+                    .buildNewEntity();
+            Book bookFromBuilder2 = Book.builder()
+                    .title("Java")
+                    .author(author2)
+                    .commentList(List.of(comment1))
+                    .publisher(Book.Publisher.PWN)
+                    .buildNewEntity();
+            Book bookFromBuilder3 = Book.builder()
+                    .title("Programowanie funkcyjne")
+                    .author(author2)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .buildNewEntity();
+            bookRepository.saveAll(List.of(bookFromBuilder1, bookFromBuilder2, bookFromBuilder3));
         }
     }
 }

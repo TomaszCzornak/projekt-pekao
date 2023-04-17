@@ -46,6 +46,6 @@ public class AuthorController {
     @PutMapping("/{id}")
     public void putAuthor(@PathVariable("id") Long id, @RequestBody Author author) {
         if (!id.equals(author.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
-        authorService.updateAuthor(id, author);
+        authorService.updateAuthor(author);
     }
 }

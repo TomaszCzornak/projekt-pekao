@@ -38,8 +38,7 @@ public class AuthorService {
         return authorDaoJpa.addAuthor(author);
     }
 
-    public Author updateAuthor(Long id, Author author) {
-        authorDaoJpa.findById(id);
+    public Author updateAuthor(Author author) {
         return authorDaoJpa.addAuthor(author);
     }
 }

@@ -1,5 +1,6 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.CommentTestUtility;
 import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -12,8 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 //@TestPropertySource("/application-test.properties") //alternative in case of test issues
@@ -32,21 +32,21 @@ class CommentServiceTest {
     @Test
     void findAllComments() {
         //given
-        Comment comment1 = commentRepository.save(new Comment("Pierwszy komentarz"));
-        Comment comment2 = commentRepository.save(new Comment("Drugi komentarz"));
-        Comment comment3 = commentRepository.save(new Comment("Trzeci komentarz"));
-        commentRepository.saveAll(List.of(comment1, comment2, comment3));
+        final List<Comment> commentList = commentRepository.saveAll(
+                List.of(CommentTestUtility.createComment(),
+                        CommentTestUtility.createComment(),
+                        CommentTestUtility.createComment()));
+
         //when
-        List<Comment> commentList = commentService.findAllComments();
+        List<Comment> commentListFound = commentService.findAllComments();
         //then
-        assertThat(commentList, hasSize(3));
+        assertThat(commentListFound, hasSize(3));
     }
 
     @Test
     void findCommentById() {
         //given
-        Comment commentToSave = commentRepository.save(new Comment("Pierwszy komentarz"));
-        Comment commentSaved = commentRepository.save(commentToSave);
+        Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
         //when
         Comment commentFound = commentService.findCommentById(commentSaved.getId());
         //then
@@ -56,46 +56,49 @@ class CommentServiceTest {
     @Test
     void removeCommentById() {
         //given
-        Comment commentSaved = commentRepository.save(new Comment("Pierwszy komentarz"));
+        Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
+
         //when
         commentService.removeCommentById(commentSaved.getId());
         //then
-        assertThrows(IllegalStateException.class, ()->commentService.findCommentById(commentSaved.getId()));
+        assertThrows(IllegalStateException.class, () -> commentService.findCommentById(commentSaved.getId()));
     }
 
     @Test
     void addComment() {
         //given
-        Comment comment = new Comment("Add Comment Test");
+        Comment commentToSave = CommentTestUtility.createComment();
         //when
-        commentService.addComment(comment);
-        Comment commentSaved = commentService.findCommentByContent("Add Comment Test");
+        Comment commentSaved = commentService.addComment(commentToSave);
         //then
-        assertThat(commentSaved).extracting( "id","content")
+        assertNotNull(commentSaved);
+        assertThat(commentSaved).extracting("id", "content")
                 .doesNotContainNull()
-                .containsExactly(commentSaved.getId(), "Add Comment Test");
+                .containsExactly(commentSaved.getId(), commentToSave.getContent());
     }
 
     @Test
     void updateComment() {
         //given
-        Comment commentSaved = commentRepository.save(new Comment("Pierwszy komentarz"));
-        Comment commentFound = commentService.findCommentByContent("Pierwszy komentarz");
+        Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
+
         //when
-        commentFound.setContent("Zmieniony komentarz");
-        commentService.updateComment(commentSaved.getId(), commentFound);
-        Comment changedComment = commentService.findCommentByContent(commentFound.getContent());
+        Comment commentChangedToSave = Comment.builder()
+                .from(commentSaved)
+                .createContent("Zmieniony komentarz")
+                .build();
+        Comment commentUpdated = commentService.updateComment(commentChangedToSave);
         //then
-        assertEquals(changedComment.getContent(), "Zmieniony komentarz");
+        assertEquals(commentUpdated.getContent(), "Zmieniony komentarz");
 
     }
 
     @Test
     void findCommentByContent() {
         //given
-        Comment commentSaved = commentRepository.save(new Comment("Pierwszy komentarz"));
+        Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
         //when
-        Comment commentByContentFound = commentService.findCommentByContent("Pierwszy komentarz");
+        Comment commentByContentFound = commentService.findCommentByContent(commentSaved.getContent());
         //then
         assertEquals(commentByContentFound.getContent(), commentSaved.getContent());
     }

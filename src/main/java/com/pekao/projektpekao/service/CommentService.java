@@ -22,10 +22,11 @@ public class CommentService {
     }
 
     public Comment findCommentById(Long id) {
-        return commentDaoJpa.findById(id).orElseThrow(()->new IllegalStateException("Cannot find comment with id " + id));
+        return commentDaoJpa.findById(id).orElseThrow(() -> new IllegalStateException("Cannot find comment with id " + id));
     }
+
     public Comment findCommentByContent(String content) {
-        return commentDaoJpa.findCommentByContent(content).orElseThrow(()->new IllegalStateException("Cannot find comment with content " + content));
+        return commentDaoJpa.findCommentByContent(content).orElseThrow(() -> new IllegalStateException("Cannot find comment with content " + content));
     }
 
     public void removeCommentById(Long id) {
@@ -36,9 +37,8 @@ public class CommentService {
         return commentDaoJpa.addComment(comment);
     }
 
-    public void updateComment(Long id, Comment comment) {
-        findCommentById(id);
-        commentDaoJpa.updateComment(comment);
+    public Comment updateComment(Comment comment) {
+        return commentDaoJpa.updateComment(comment);
     }
 
 }

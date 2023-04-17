@@ -1,5 +1,6 @@
 package com.pekao.projektpekao.service;
 
+import com.pekao.projektpekao.AuthorTestUtility;
 import com.pekao.projektpekao.entity.Author;
 import com.pekao.projektpekao.repository.AuthorRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -38,35 +39,40 @@ class AuthorServiceTest {
     @Test
     void findAllAuthors() {
         //given
-        Author author1 = new Author("Pierre-Yves_testowy", "Saumont");
-        Author author2 = new Author("John_testowy", "Walker");
-        Author author3 = new Author("Stephen_testowy", "King");
-        authorRepository.saveAll(List.of(author1, author2, author3));
+        final List<Author> authorsToSave = List.of(AuthorTestUtility.createAuthor("Stephen","King"),
+        AuthorTestUtility.createAuthor("Marco", "Polo"),AuthorTestUtility.createAuthor("Rysiek","Kapuściński"));
+        List<Author> authorsSaved = authorRepository.saveAll(authorsToSave);
         //when
-        List<Author> authorList = authorService.findAllAuthors();
+        List <Author> authorsFound = authorService.findAllAuthors();
         //then
-        assertThat(authorList, hasSize(3));
+        assertThat(authorsFound, hasSize(3));
+        assertThat(
+                authorsFound.stream().anyMatch(n -> n.getLastName().equals(authorsSaved.get(0).getLastName()))
+        ).isTrue();
+        assertThat(
+                authorsFound.stream().anyMatch(n -> n.getLastName().equals(authorsSaved.get(1).getLastName()))
+        ).isTrue();
 
     }
 
     @Test
     void findAuthorById() {
         //given
-        Author authorToSave = new Author("Pierre-Yves", "Saumont");
+        Author authorToSave = AuthorTestUtility.createAuthor("Mary","Jane");
         Author savedAuthor = authorRepository.save(authorToSave);
         //when
         Author authorFound = authorService.findAuthorById(authorToSave.getId());
         //then
         assertThat(authorFound).extracting("id","firstName", "lastName")
                 .doesNotContainNull()
-                .containsExactly(savedAuthor.getId(),"Pierre-Yves", "Saumont");
+                .containsExactly(savedAuthor.getId(),"Mary", "Jane");
 
     }
 
     @Test
     void removeAuthorById() {
         //given
-        Author authorToSave = new Author("Pierre-Yves", "Saumont");
+        Author authorToSave = AuthorTestUtility.createAuthor("Tomasz","Bykowski");
         Author authorSaved = authorRepository.save(authorToSave);
         //when
         authorService.removeAuthorById(authorSaved.getId());
@@ -77,33 +83,33 @@ class AuthorServiceTest {
     @Test
     void addAuthor() {
         //given
-        Author authorToSave = new Author("Pierre-Yves", "Saumont");
+        Author authorToSave = AuthorTestUtility.createAuthor("Pierre","Cardin");
         //when
         Author authorSaved = authorService.addAuthor(authorToSave);
         //then
         assertThat(authorSaved).extracting("firstName", "lastName")
                 .doesNotContainNull()
-                .containsExactly("Pierre-Yves", "Saumont");
+                .containsExactly("Pierre","Cardin");
     }
 
     @Test
     void updateAuthor() {
         //given
-        Author authorToSave = new Author("John", "Walker");
-        authorRepository.save(authorToSave);
-        Author authorByLastNameFound = authorService.findAuthorByLastName(authorToSave.getLastName());
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthor("Johnny", "Walker"));
+        Author authorChangedToSave = Author.builder()
+                .from(authorSaved)
+                .withLastName("B. Good")
+                .build();
         //when
-        authorByLastNameFound.setLastName("Borrows");
-        authorService.updateAuthor(authorByLastNameFound.getId(), authorByLastNameFound);
-        Author changedAuthor = authorService.findAuthorByLastName(authorByLastNameFound.getLastName());
+        authorService.updateAuthor(authorChangedToSave);
+        Author changedAuthorFound = authorService.findAuthorByLastName(authorChangedToSave.getLastName());
         //then
-        assertEquals(changedAuthor.getLastName(), authorByLastNameFound.getLastName());
+        assertEquals(changedAuthorFound.getLastName(), authorChangedToSave.getLastName());
     }
     @Test
     void findAuthorByLastName() {
         //given
-        Author authorToSave = new Author("Pierre-Yves", "Saumont");
-        Author authorSaved = authorRepository.save(authorToSave);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthor("Johnny", "Walker"));
         //when
         Author authorFound = authorService.findAuthorByLastName(authorSaved.getLastName());
         //then

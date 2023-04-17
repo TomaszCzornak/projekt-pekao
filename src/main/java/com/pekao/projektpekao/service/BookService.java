@@ -37,7 +37,7 @@ public class BookService {
         return bookDaoJpa.addBook(book);
     }
 
-    public void updateBook(Book book) {
-        bookDaoJpa.addBook(book);
+    public Book updateBook(Book book) {
+       return bookDaoJpa.addBook(book);
     }
 }

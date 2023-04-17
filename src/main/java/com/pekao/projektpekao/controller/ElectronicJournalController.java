@@ -44,6 +44,6 @@ public class ElectronicJournalController {
         if(!Objects.equals(id, electronicJournal.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "nie ma takiego dziennika");
         }
-        electronicJournalService.updateElectronicJournal(id, electronicJournal);
+       electronicJournalService.updateElectronicJournal(electronicJournal);
     }
 }

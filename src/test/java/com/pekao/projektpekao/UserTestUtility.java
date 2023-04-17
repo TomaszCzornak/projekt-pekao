@@ -22,8 +22,8 @@ public class UserTestUtility {
                 "Kowalski",
                 "adam.kowalski@gmail.com",
                 List.of(
-                        new Comment("Testowy komentarz 1 usera 1"),
-                        new Comment("Testowy komentarz 2 usera 1")
+                        CommentTestUtility.createComment(),
+                        CommentTestUtility.createComment()
                 )
         );
     }
@@ -34,8 +34,8 @@ public class UserTestUtility {
                 "Michalak",
                 "damian.michalak@gmail.com",
                 List.of(
-                        new Comment("Testowy komentarz 1 usera 2"),
-                        new Comment("Testowy komentarz 2 usera 2")
+                        CommentTestUtility.createComment(),
+                        CommentTestUtility.createComment()
                 )
         );
     }
@@ -50,4 +50,19 @@ public class UserTestUtility {
                 .buildNewEntity();
     }
 
+    private static User createUser(String firstName, String lastName, String email) {
+        return User.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .createdAt(LocalDate.now())
+                .buildNewEntity();
+    }
+
+    public static User createUserWithEmail() {
+        return createUser(
+                "Adam",
+                "Kowalski",
+                "adam.kowalski@gmail.com");
+    }
 }

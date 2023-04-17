@@ -1,8 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.BookTestUtility;
+import com.pekao.projektpekao.ElectronicJournalTestUtility;
 import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.Comment;
 import com.pekao.projektpekao.entity.ElectronicJournal;
 import com.pekao.projektpekao.repository.AuthorRepository;
 import com.pekao.projektpekao.repository.BookRepository;
@@ -21,6 +21,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+//@TestPropertySource("/application-test.properties") //alternative in case of test issues
 class ElectronicJournalServiceTest {
 
     @Autowired
@@ -48,53 +49,40 @@ class ElectronicJournalServiceTest {
     @Test
     void findAllElectronicJournals() {
         //given
-        Author author2 = new Author("Dziennikowy Autor 1", "Test 1");
-        Author author1 = new Author("Dziennikowy Autor 2", "Test 2");
-        authorRepository.saveAll(List.of(author1, author2));
-        Comment comment1 = commentRepository.save(new Comment("Komentarz książki testowy 1"));
-        Comment comment2 = commentRepository.save(new Comment("Komentarz książki testowy 2"));
-        Comment comment3 = commentRepository.save(new Comment("Komentarz książki testowy 3"));
-        Book bookToSave1 = new Book("Testowy tytuł 1", author1, List.of(comment2), Book.Publisher.ZNAK);
-        Book bookToSave2 = new Book("Testowy tytuł 2", author2, List.of(comment1), Book.Publisher.PWN);
-        Book bookToSave3 = new Book("Testowy tytuł 3", author2, List.of(comment3), Book.Publisher.AGORA);
-        bookRepository.saveAll(List.of(bookToSave1, bookToSave2, bookToSave3));
+        final List<Book> booksSaved = bookRepository.saveAll(
+                List.of(BookTestUtility.createBookWithPublisher(Book.Publisher.ZNAK), BookTestUtility.createBookWithPublisher(Book.Publisher.PWN)));
         //when
         List<ElectronicJournal> electronicJournalsFound = electronicJournalService.findAllElectronicJournals();
         //then
-        assertThat(electronicJournalsFound, hasSize(3));
+        assertThat(electronicJournalsFound, hasSize(2));
     }
 
     @Test
     void findElectronicJournalById() {
         //given
-        Author author1 = new Author("Dziennikowy Autor 1", "Test 1");
-        authorRepository.save(author1);
-        Comment comment1 = commentRepository.save(new Comment("Komentarz książki testowy 1"));
-        Book bookToSave = new Book("Testowy tytuł 1", author1, List.of(comment1), Book.Publisher.ZNAK);
-        Book bookSaved = bookRepository.save(bookToSave);
+        Book bookSavedWithPublisher = bookRepository.save(BookTestUtility.createBookWithPublisher(Book.Publisher.PWN));
         //when
-        ElectronicJournal electronicJournalFound = electronicJournalService.findElectronicJournalById(bookSaved.getElectronicJournal().getId());
+        ElectronicJournal electronicJournalFound = electronicJournalService.findElectronicJournalById(bookSavedWithPublisher.getElectronicJournal().getId());
         //then
-        assertEquals(bookSaved.getElectronicJournal().getId(), electronicJournalFound.getId());
+        assertEquals(bookSavedWithPublisher.getElectronicJournal().getId(), electronicJournalFound.getId());
 
     }
 
     @Test
     void removeElectronicJournalById() {
         //given
-        ElectronicJournal electronicJournalToSave = new ElectronicJournal(ElectronicJournal.EventType.TO_DO);
-        ElectronicJournal electronicJournalSaved = electronicJournalRepository.save(electronicJournalToSave);
+        ElectronicJournal electronicJournalSaved = electronicJournalRepository.save(ElectronicJournalTestUtility.createElectronicJournalEntryWithEventType(ElectronicJournal.EventType.TO_DO));
         //when
         electronicJournalService.removeElectronicJournalById(electronicJournalSaved.getId());
         //then
-        assertThrows(IllegalStateException.class, ()->electronicJournalService.findElectronicJournalById(electronicJournalSaved.getId()));
+        assertThrows(IllegalStateException.class, () -> electronicJournalService.findElectronicJournalById(electronicJournalSaved.getId()));
 
     }
 
     @Test
     void addElectronicJournal() {
         //given
-        ElectronicJournal electronicJournalToSave = new ElectronicJournal(ElectronicJournal.EventType.MANAGER);
+        ElectronicJournal electronicJournalToSave = ElectronicJournalTestUtility.createElectronicJournalEntryWithEventType(ElectronicJournal.EventType.MANAGER);
         //when
         ElectronicJournal electronicJournalSaved = electronicJournalService.addElectronicJournal(electronicJournalToSave);
         ElectronicJournal electronicJournalFound = electronicJournalService.findElectronicJournalById(electronicJournalSaved.getId());
@@ -105,13 +93,14 @@ class ElectronicJournalServiceTest {
     @Test
     void updateElectronicJournal() {
         //given
-        ElectronicJournal electronicJournalSaved = electronicJournalRepository.save(new ElectronicJournal(ElectronicJournal.EventType.DONE));
-        ElectronicJournal electronicJournalFound = electronicJournalRepository.findElectronicJournalByEventType(electronicJournalSaved.getEventType());
+        ElectronicJournal electronicJournalSaved = electronicJournalRepository.save(ElectronicJournalTestUtility.createElectronicJournalEntryWithEventType(ElectronicJournal.EventType.TO_DO));
+        ElectronicJournal eJToChange = ElectronicJournal.builder()
+                .from(electronicJournalSaved)
+                .eventType(ElectronicJournal.EventType.DONE)
+                .buildFrom();
         //when
-        electronicJournalFound.setEventType(ElectronicJournal.EventType.MANAGER);
-        electronicJournalService.updateElectronicJournal(electronicJournalFound.getId(), electronicJournalFound);
-        ElectronicJournal electronicJournalChanged = electronicJournalService.findElectronicJournalById(electronicJournalFound.getId());
+        ElectronicJournal electronicJournalChanged = electronicJournalService.updateElectronicJournal(eJToChange);
         //then
-        assertEquals(electronicJournalChanged.getEventType(), ElectronicJournal.EventType.MANAGER);
+        assertEquals(electronicJournalChanged.getEventType(), eJToChange.getEventType());
     }
 }

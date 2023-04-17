@@ -33,7 +33,7 @@ public class ElectronicJournalService {
         return electronicJournalDao.addElectronicJournal(electronicJournal);
     }
 
-    public void updateElectronicJournal(Long id, ElectronicJournal electronicJournal) {
-        electronicJournalDao.addElectronicJournal(electronicJournal);
+    public ElectronicJournal updateElectronicJournal(ElectronicJournal electronicJournal) {
+        return electronicJournalDao.addElectronicJournal(electronicJournal);
     }
 }
