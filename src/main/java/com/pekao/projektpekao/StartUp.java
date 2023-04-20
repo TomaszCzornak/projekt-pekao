@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Profile("dev")
@@ -51,7 +50,7 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .withFirstName("Mock_Autor")
                     .withLastName("Mock_Nazwisko")
                     .buildNewEntity();
-            authorRepository.saveAll(List.of(author1, author2));
+//            authorRepository.saveAll(List.of(author1, author2));
             final Comment comment1 = Comment.builder()
                     .createContent("Mockowy komentarz 1")
                     .buildNewEntity();

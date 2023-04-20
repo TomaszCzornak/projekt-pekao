@@ -1,6 +1,7 @@
 package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.entity.BookDto;
 import com.pekao.projektpekao.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,19 @@ public class BookController {
         this.bookService = bookService;
     }
     @GetMapping("/all")
-    public List<Book> getAllBooks() {
+    public BookResponse getAllBooks() {
         LOGGER.info("Printing all books");
-        return bookService.findAllBooks();
+        List<BookDto> bookDtoList = BookDtoMapper.bookDtos(bookService.findAllBooks());
+        return BookResponse.builder()
+                .bookResponseList(bookDtoList)
+                .build();
     }
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable("id") Long id) {
-        return bookService.findBookById(id);
+    public BookResponse getBookById(@PathVariable("id") Long id) {
+        BookDto singleBook = BookDtoMapper.toBookDto(bookService.findBookById(id));
+        return BookResponse.builder()
+                .singleBookDto(singleBook)
+                .build();
     }
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable("id") Long id) {
