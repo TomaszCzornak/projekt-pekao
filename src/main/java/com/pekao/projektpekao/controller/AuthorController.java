@@ -23,14 +23,19 @@ public class AuthorController {
     }
 
     @GetMapping("/all")
-    public List<Author> getAllAuthors() {
-        LOGGER.info("Printing all authors");
-        return authorService.findAllAuthors();
+    public AuthorsResponse getAllAuthors() {
+        List<AuthorDto> authorDtoList = AuthorDtoMapper.toAuthorDtoList(authorService.findAllAuthors());
+        return AuthorsResponse.builder()
+                .authorResponseList(authorDtoList)
+                .build();
     }
 
     @GetMapping("/{id}")
-    public Author getAuthorById(@PathVariable("id") Long id) {
-        return authorService.findAuthorById(id);
+    public AuthorResponse getAuthorById(@PathVariable("id") Long id) {
+        AuthorWithBooksDto singleAuthor = AuthorWithBooksDtoMapper.toAuthorWithBooksDto(authorService.findAuthorById(id));
+        return AuthorResponse.builder()
+                .authorResponse(singleAuthor)
+                .build();
     }
 
     @DeleteMapping("/{id}")
@@ -38,14 +43,22 @@ public class AuthorController {
         authorService.removeAuthorById(id);
     }
 
-    @PostMapping()
-    public Author postAuthor(@RequestBody Author author) {
-        return authorService.addAuthor(author);
-    }
+//    @PostMapping()
+//    public AuthorResponse postAuthor(@RequestBody AuthorDto authorDto) {
+//        Author authorToPost = AuthorEntityMapper.toAuthorEntity(authorDto);
+//        Author authorSaved = authorService.addAuthor(authorToPost);
+//        AuthorWithBooksDto authorDto1 = AuthorWithBooksDtoMapper.toAuthorWithBooksDto(authorSaved);
+//        return AuthorResponse.builder()
+//                .authorResponse(authorDto1)
+//                .build();
+//    }
 
     @PutMapping("/{id}")
-    public void putAuthor(@PathVariable("id") Long id, @RequestBody Author author) {
-        if (!id.equals(author.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
-        authorService.updateAuthor(author);
+    public void putAuthor(@PathVariable("id") Long id, @RequestBody AuthorDto authorDto) {
+        if (!id.equals(authorDto.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
+        }
+        Author authorToPut = AuthorEntityMapper.toAuthorEntity(authorDto);
+        authorService.updateAuthor(authorToPut);
     }
 }

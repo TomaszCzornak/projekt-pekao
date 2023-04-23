@@ -33,11 +33,9 @@ class CommentServiceTest {
     void findAllComments() {
         //given
         final List<Comment> commentList = commentRepository.saveAll(
-                List.of(
+                List.of(CommentTestUtility.createComment(),
                         CommentTestUtility.createComment(),
-                        CommentTestUtility.createComment(),
-                        CommentTestUtility.createComment()
-                ));
+                        CommentTestUtility.createComment()));
 
         //when
         List<Comment> commentListFound = commentService.findAllComments();
@@ -59,6 +57,7 @@ class CommentServiceTest {
     void removeCommentById() {
         //given
         Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
+
         //when
         commentService.removeCommentById(commentSaved.getId());
         //then
@@ -81,16 +80,16 @@ class CommentServiceTest {
     @Test
     void updateComment() {
         //given
-        final String zmienionyKomentarz = "Zmieniony komentarz";
         Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
+
         //when
         Comment commentChangedToSave = Comment.builder()
                 .from(commentSaved)
-                .createContent(zmienionyKomentarz)
+                .content("Zmieniony komentarz")
                 .build();
         Comment commentUpdated = commentService.updateComment(commentChangedToSave);
         //then
-        assertEquals(commentUpdated.getContent(), zmienionyKomentarz);
+        assertEquals(commentUpdated.getContent(), "Zmieniony komentarz");
 
     }
 

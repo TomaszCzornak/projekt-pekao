@@ -1,29 +1,33 @@
 package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.BookDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class BookDtoMapper {
+public final class BookDtoMapper {
+
+    private BookDtoMapper() {}
 
     public static BookDto toBookDto(Book book) {
         return BookDto.builder()
                 .id(book.getId())
                 .title(book.getTitle())
-                .author(book.getAuthor())
-                .commentList(book.getCommentList())
-                .publisher(book.getPublisher())// TODO: 20.04.2023  
+                .author(AuthorDto.builder()
+                        .id(book.getAuthor().getId())
+                        .firstName(book.getAuthor().getFirstName())
+                        .lastName(book.getAuthor().getLastName())
+                        .build())
+                .commentDtoList(CommentDtoMapper.toCommentsDto(book.getCommentList()))
+                .publisher(book.getPublisher())
                 .electronicJournal(book.getElectronicJournal())
                 .build();
 
     }
 
-    public static List<BookDto> bookDtos (List<Book> bookList) {
+    public static List<BookDto> toBookDtos(List<Book> bookList) {
         return bookList.stream()
                 .map(BookDtoMapper::toBookDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-}
+    }

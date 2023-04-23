@@ -1,48 +1,45 @@
-   package com.pekao.projektpekao.entity;
+package com.pekao.projektpekao.controller;
 
-   import java.util.List;
+import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.entity.ElectronicJournal;
+
+import java.util.List;
 public class BookDto {
 
     private Long id;
     private String title;
-    private Author author;
-    // TODO delete after DTO
-    private List<Comment> commentList;
+    private AuthorDto authorDto;
+    private List<CommentDto> commentDtoList;
 
     private ElectronicJournal electronicJournal;
-    private Publisher publisher;
+    private Book.Publisher publisher;
 
-    public enum Publisher {
-        WYDAWNICTWO_LITERACKIE,
-        PWN,
-        ZNAK,
-        AGORA,
-    }
+
 
     public BookDto() {
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Long getId() {
+        return id;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public AuthorDto getAuthorDto() {
+        return authorDto;
+    }
+
+    public List<CommentDto> getcommentDtoList() {
+        return commentDtoList;
     }
 
     public ElectronicJournal getElectronicJournal() {
         return electronicJournal;
     }
 
-    public Publisher getPublisher() {
+    public Book.Publisher getPublisher() {
         return publisher;
     }
     public static BookDto.Builder builder() {
@@ -51,15 +48,13 @@ public class BookDto {
     public static final class Builder {
         private Long id;
         private String title;
-
-        private Author author;
-        private List<Comment> commentList;
+        private AuthorDto authorDto;
+        private List<CommentDto> commentDtoList;
         private ElectronicJournal electronicJournal;
-        private Publisher publisher;
+        private Book.Publisher publisher;
 
         private Builder() {
         }
-
 
         public Builder id(Long id) {
             this.id = id;
@@ -71,13 +66,13 @@ public class BookDto {
             return this;
         }
 
-        public Builder author(Author author) {
-            this.author = author;
+        public Builder author(AuthorDto authorDto) {
+            this.authorDto = authorDto;
             return this;
         }
 
-        public Builder commentList(List<Comment> commentList) {
-            this.commentList = commentList;
+        public Builder commentDtoList(List<CommentDto> commentDtoList) {
+            this.commentDtoList = commentDtoList;
             return this;
         }
 
@@ -86,20 +81,21 @@ public class BookDto {
             return this;
         }
 
-        public Builder publisher(BookDto.Publisher publisher) {
+        public Builder publisher(Book.Publisher publisher) {
             this.publisher = publisher;
             return this;
         }
 
         public BookDto build() {
             BookDto bookDto = new BookDto();
-            bookDto.commentList = this.commentList;
             bookDto.id = this.id;
+            bookDto.commentDtoList = this.commentDtoList;
             bookDto.publisher = this.publisher;
             bookDto.title = this.title;
-            bookDto.author = this.author;
+            bookDto.authorDto = this.authorDto;
             bookDto.electronicJournal = this.electronicJournal;
             return bookDto;
         }
     }
 }
+

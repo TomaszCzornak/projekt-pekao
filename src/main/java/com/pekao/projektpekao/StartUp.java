@@ -50,15 +50,15 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .withFirstName("Mock_Autor")
                     .withLastName("Mock_Nazwisko")
                     .buildNewEntity();
-//            authorRepository.saveAll(List.of(author1, author2));
+            authorRepository.saveAll(List.of(author1, author2));
             final Comment comment1 = Comment.builder()
-                    .createContent("Mockowy komentarz 1")
+                    .content("Mockowy komentarz 1")
                     .buildNewEntity();
             final Comment comment2 = Comment.builder()
-                    .createContent("Mockowy komentarz 2")
+                    .content("Mockowy komentarz 2")
                     .buildNewEntity();
             final Comment comment3 = Comment.builder()
-                    .createContent("Mockowy komentarz 3")
+                    .content("Mockowy komentarz 3")
                     .buildNewEntity();
 
             final User user1 = User.builder()
@@ -76,8 +76,6 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .commentList(List.of(comment3))
                     .createdAt(LocalDate.now())
                     .buildNewEntity();
-
-            userRepository.saveAll(List.of(user1, user2));
 
             Book bookFromBuilder1 = Book.builder()
                     .title("Spring w Akcji")
@@ -98,6 +96,8 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
                     .publisher(Book.Publisher.AGORA)
                     .buildNewEntity();
             bookRepository.saveAll(List.of(bookFromBuilder1, bookFromBuilder2, bookFromBuilder3));
+            userRepository.saveAll(List.of(user1, user2));
+
         }
     }
 }

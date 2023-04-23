@@ -16,7 +16,7 @@ public class Comment {
     private String content;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Book book;
 
     protected Comment() {
@@ -51,17 +51,17 @@ public class Comment {
             return this;
         }
 
-        public Builder createContent(String content) {
+        public Builder content(String content) {
             this.content = content;
             return this;
         }
 
-        public Builder createUser(User user) {
+        public Builder user(User user) {
             this.user = user;
             return this;
         }
 
-        public Builder createBook(Book book) {
+        public Builder book(Book book) {
             this.book = book;
             return this;
         }
@@ -73,9 +73,10 @@ public class Comment {
 
         public Comment buildNewEntity() {
             if (id != null) {
-                throw new IllegalStateException("To create new object, id needs to be null");
+                throw new IllegalStateException("To  new object, id needs to be null");
             }
             return new Comment(null, content, user, book);
+
         }
 
     }
@@ -102,5 +103,9 @@ public class Comment {
 
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    public void setBook(final Book book) {
+        this.book = book;
     }
 }

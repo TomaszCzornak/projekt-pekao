@@ -6,8 +6,8 @@ public class CommentTestUtility {
 
     public static Comment createComment() {
         return Comment.builder()
-                .createContent("Komentarz do Książki")
-//                .createUser(UserTestUtility.createUser("Mary","Jane"))
+                .content("Komentarz do Książki")
+                .user(UserTestUtility.createUser("Mary","Jane"))
                 .buildNewEntity();
 
     }

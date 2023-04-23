@@ -21,9 +21,9 @@ public class UserTestUtility {
                 "Adam",
                 "Kowalski",
                 "adam.kowalski@gmail.com",
-                List.of(
-                        CommentTestUtility.createComment(),
-                        CommentTestUtility.createComment()
+                List.of(Comment.builder()
+                        .content("Testowy Komentarz")
+                        .buildNewEntity()
                 )
         );
     }
@@ -33,9 +33,12 @@ public class UserTestUtility {
                 "Damian",
                 "Michalak",
                 "damian.michalak@gmail.com",
-                List.of(
-                        CommentTestUtility.createComment(),
-                        CommentTestUtility.createComment()
+                List.of(Comment.builder()
+                        .content("Testowy Komentarz 1")
+                        .buildNewEntity(),
+                        Comment.builder()
+                                .content("Testowy Komentarz 2")
+                                .buildNewEntity()
                 )
         );
     }

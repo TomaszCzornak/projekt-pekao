@@ -1,9 +1,8 @@
 package com.pekao.projektpekao.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Book {
@@ -12,10 +11,8 @@ public class Book {
     private Long id;
     private String title;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JsonIgnore
     private Author author;
-    // TODO delete after DTO
-    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Comment> commentList;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -56,8 +53,9 @@ public class Book {
         };
     }
 
-    public Book(Long id, String title, Author author, List<Comment> commentList,
-                ElectronicJournal electronicJournal, Publisher publisher) {
+    public Book(
+            final Long id, final String title, final Author author, final List<Comment> commentList,
+                final ElectronicJournal electronicJournal, final Publisher publisher) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -131,7 +129,14 @@ public class Book {
                 throw new IllegalStateException("Id must be null if you want create new Entity");
             }
 
-            return new Book(null, title, author, commentList, electronicJournal, publisher);
+            final  Book book = new Book(null, title, author, commentList, electronicJournal, publisher);
+
+            Optional.ofNullable(book.commentList)
+                    .ifPresent(comments ->
+                            comments.forEach(comment -> comment.setBook(book))
+                    );
+
+            return book;
         }
 
         public Book build() {

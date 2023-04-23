@@ -1,7 +1,6 @@
 package com.pekao.projektpekao.controller;
 
 import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.BookDto;
 import com.pekao.projektpekao.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,35 +22,45 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
     @GetMapping("/all")
-    public BookResponse getAllBooks() {
+    public BooksResponse getAllBooks() {
         LOGGER.info("Printing all books");
-        List<BookDto> bookDtoList = BookDtoMapper.bookDtos(bookService.findAllBooks());
-        return BookResponse.builder()
+        List<BookDto> bookDtoList = BookDtoMapper.toBookDtos(bookService.findAllBooks());
+        return BooksResponse.builder()
                 .bookResponseList(bookDtoList)
                 .build();
     }
+
     @GetMapping("/{id}")
     public BookResponse getBookById(@PathVariable("id") Long id) {
         BookDto singleBook = BookDtoMapper.toBookDto(bookService.findBookById(id));
         return BookResponse.builder()
-                .singleBookDto(singleBook)
+                .bookDtoResponse(singleBook)
                 .build();
     }
+
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable("id") Long id) {
         bookService.removeBookById(id);
     }
 
     @PostMapping()
-    public Book postBook(@RequestBody Book book) {
-       return bookService.addBook(book);
+    public BookResponse postBook(@RequestBody BookDto bookDto) {
+        Book bookToPost = BookEntityMapper.toBookEntity(bookDto);
+        Book bookSaved = bookService.addBook(bookToPost);
+        BookDto bookDto1 = BookDtoMapper.toBookDto(bookSaved);
+        return BookResponse.builder()
+                .bookDtoResponse(bookDto1)
+                .build();
     }
+
     @PutMapping("/{id}")
-    public void putBook(@PathVariable("id") Long id, @RequestBody Book book) {
-        if(!Objects.equals(id, bookService.findBookById(id).getId())) {
+    public void putBook(@PathVariable("id") Long id, @RequestBody BookDto bookDto) {
+        if (!Objects.equals(id, bookService.findBookById(id).getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }
-        bookService.updateBook(book);
+        Book bookToPut = BookEntityMapper.toBookEntity(bookDto);
+        bookService.updateBook(bookToPut);
     }
 }
