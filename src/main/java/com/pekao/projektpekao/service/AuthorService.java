@@ -2,6 +2,7 @@ package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.entity.Author;
 import com.pekao.projektpekao.infrastructure.AuthorDao;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,42 +12,33 @@ import java.util.List;
 @Service
 public class AuthorService {
 
-    //    private final AuthorRepository authorRepository;
-    @Resource("AuthorDaoJpaImpl")
+    @Resource(name = "AuthorDaoJpaImpl")
     private final AuthorDao authorDaoJpa;
 
-//    @Resource("AwsCloud")
-    @Resource("Azure")
-    private final CloudService cloudService;
-
-    public AuthorService(AuthorDao authorDaoJpa, final CloudService cloudService) {
+    public AuthorService(@Qualifier("AuthorDaoJpaImpl") AuthorDao authorDaoJpa) {
         this.authorDaoJpa = authorDaoJpa;
-        this.cloudService = cloudService;
     }
 
     public List findAllAuthors() {
-        cloudService.sendToAws("asd");
         return authorDaoJpa.findAll();
     }
 
     public Author findAuthorById(Long id) {
-        return authorDaoJpa.findById(id);
+        return authorDaoJpa.findById(id).orElseThrow(()->new IllegalStateException("Cannot find an author with ID: " + id));
+    }
+    public Author findAuthorByLastName(String lastName) {
+        return authorDaoJpa.findByLastName(lastName);
     }
 
     public void removeAuthorById(Long id) {
-        // TODO: 3/14/2023 IMPL
-        //        authorDaoJpa.delete(id);
+        authorDaoJpa.deleteAuthorById(id);
     }
 
     public Author addAuthor(Author author) {
-        // TODO: 3/14/2023 IMPL
-//        return authorDaoJpa.sa(author);
-        return null;
+        return authorDaoJpa.addAuthor(author);
     }
 
-    public Author updateAuthor(Long id, Author author) {
-        // TODO: 3/14/2023 IMPL
-//        return authorDaoJpa.save(author);
-        return null;
+    public Author updateAuthor(Author author) {
+        return authorDaoJpa.addAuthor(author);
     }
 }
