@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.UserTestUtility;
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.User;
 import com.pekao.projektpekao.repository.CommentRepository;
 import com.pekao.projektpekao.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;

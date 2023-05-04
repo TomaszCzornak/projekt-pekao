@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 import com.pekao.projektpekao.infrastructure.CommentDao;
 import org.springframework.stereotype.Service;
 

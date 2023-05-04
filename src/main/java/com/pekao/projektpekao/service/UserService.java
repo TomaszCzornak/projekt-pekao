@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.User;
 import com.pekao.projektpekao.infrastructure.UserDao;
 import org.springframework.stereotype.Service;
 

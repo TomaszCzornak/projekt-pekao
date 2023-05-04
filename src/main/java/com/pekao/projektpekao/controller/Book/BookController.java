@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.Book;
 
-import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.domain.book.Book;
 import com.pekao.projektpekao.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +47,7 @@ public class BookController {
 
     @PostMapping()
     public BookResponse postBook(@RequestBody BookDto bookDto) {
+        // DTO -> PARAMSY
         Book bookToPost = BookEntityMapper.toBookEntity(bookDto);
         Book bookSaved = bookService.addBook(bookToPost);
         BookDto bookDto1 = BookDtoMapper.toBookDto(bookSaved);

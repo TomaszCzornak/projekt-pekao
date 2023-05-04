@@ -2,9 +2,9 @@ package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.AuthorTestUtility;
 import com.pekao.projektpekao.BookTestUtility;
-import com.pekao.projektpekao.entity.Author;
-import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 import com.pekao.projektpekao.repository.BookRepository;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.assertj.core.api.Assertions;

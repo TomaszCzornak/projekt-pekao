@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.AuthorTestUtility;
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 import com.pekao.projektpekao.repository.AuthorRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

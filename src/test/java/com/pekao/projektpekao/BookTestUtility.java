@@ -1,9 +1,7 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Author;
-import com.pekao.projektpekao.entity.Book;
-
-import java.util.List;
+import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.book.Book;
 
 public class BookTestUtility {
 

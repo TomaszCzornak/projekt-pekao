@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.domain.book.Book;
 import com.pekao.projektpekao.infrastructure.BookDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,7 @@ public class BookService {
     }
 
     public Book addBook(Book book) {
+        // ....
         return bookDaoJpa.addBook(book);
     }
 

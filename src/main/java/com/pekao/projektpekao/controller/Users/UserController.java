@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.Users;
 
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.User;
 import com.pekao.projektpekao.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

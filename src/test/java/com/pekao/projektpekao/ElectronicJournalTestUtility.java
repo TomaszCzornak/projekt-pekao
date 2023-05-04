@@ -1,6 +1,6 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 
 public class ElectronicJournalTestUtility {
 

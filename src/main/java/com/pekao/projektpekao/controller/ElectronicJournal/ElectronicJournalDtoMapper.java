@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.controller.ElectronicJournal;
 
 import com.pekao.projektpekao.controller.Users.UserDtoMapper;
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 
 import java.util.List;
 

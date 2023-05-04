@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.User;
 
 import java.util.List;
 import java.util.Optional;

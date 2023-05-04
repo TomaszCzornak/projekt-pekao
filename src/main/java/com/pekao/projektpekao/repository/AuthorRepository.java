@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.repository;
 
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

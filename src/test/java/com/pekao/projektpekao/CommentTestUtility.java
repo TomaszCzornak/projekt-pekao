@@ -1,6 +1,6 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 
 public class CommentTestUtility {
 

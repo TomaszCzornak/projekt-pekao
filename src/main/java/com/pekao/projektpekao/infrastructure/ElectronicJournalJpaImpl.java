@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 import com.pekao.projektpekao.repository.ElectronicJournalRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,9 @@
 package com.pekao.projektpekao.controller.Comments;
 
 import com.pekao.projektpekao.controller.Author.AuthorDto;
-import com.pekao.projektpekao.controller.Book.BookDto;
 import com.pekao.projektpekao.controller.Book.BookForCommentDto;
 import com.pekao.projektpekao.controller.Users.UserDto;
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 
 import java.util.List;
 import java.util.stream.Collectors;

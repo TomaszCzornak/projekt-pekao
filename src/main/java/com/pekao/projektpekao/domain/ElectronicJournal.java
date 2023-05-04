@@ -1,4 +1,4 @@
-package com.pekao.projektpekao.entity;
+package com.pekao.projektpekao.domain;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;

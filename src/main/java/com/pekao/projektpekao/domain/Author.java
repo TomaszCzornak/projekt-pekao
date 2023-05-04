@@ -1,4 +1,6 @@
-package com.pekao.projektpekao.entity;
+package com.pekao.projektpekao.domain;
+
+import com.pekao.projektpekao.domain.book.Book;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Author;
-import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.Comment;
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.User;
 import com.pekao.projektpekao.repository.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;

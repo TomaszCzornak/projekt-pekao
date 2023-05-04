@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.domain.book.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

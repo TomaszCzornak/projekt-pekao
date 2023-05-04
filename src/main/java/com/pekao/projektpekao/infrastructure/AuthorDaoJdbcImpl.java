@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.infrastructure;
 
 
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

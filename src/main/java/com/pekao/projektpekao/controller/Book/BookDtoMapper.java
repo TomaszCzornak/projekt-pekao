@@ -2,7 +2,7 @@ package com.pekao.projektpekao.controller.Book;
 
 import com.pekao.projektpekao.controller.Author.AuthorDto;
 import com.pekao.projektpekao.controller.Comments.CommentDtoMapper;
-import com.pekao.projektpekao.entity.Book;
+import com.pekao.projektpekao.domain.book.Book;
 
 import java.util.List;
 

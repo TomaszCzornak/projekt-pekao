@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.controller.Author;
 
 import com.pekao.projektpekao.controller.Book.BookAuthorDtoMapper;
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 
 import java.util.List;
 

@@ -1,9 +1,8 @@
 package com.pekao.projektpekao.controller.Comments;
 
-import com.pekao.projektpekao.controller.Book.BookEntityMapper;
 import com.pekao.projektpekao.controller.Book.BookForCommentEntityMapper;
 import com.pekao.projektpekao.controller.Users.UserEntityMapper;
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 
 import java.util.List;
 import java.util.stream.Collectors;

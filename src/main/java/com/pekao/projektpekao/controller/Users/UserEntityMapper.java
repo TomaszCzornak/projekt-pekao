@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.Users;
 
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.User;
 
 import java.util.List;
 

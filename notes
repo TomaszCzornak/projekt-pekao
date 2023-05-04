@@ -1,6 +1,6 @@
         // \/ DTO           KLIENT UŻYWAJĄCY PRZEGLĄDARKI
         // \/ DTO/PARAMS    Controller                      /\ DTO/RESPONSE
-        // \/ DTO/ENTITY    Service                         /\ DTO/PARAMS
+        // \/ DTO/ENTITY    Service                         /\ DTO/RESULT
         // \/ ENTITY        Repository                      /\ ENTITY/DTO
         //                  DB                              /\ ENTITY
 

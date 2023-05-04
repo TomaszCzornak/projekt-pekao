@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 import com.pekao.projektpekao.infrastructure.AuthorDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

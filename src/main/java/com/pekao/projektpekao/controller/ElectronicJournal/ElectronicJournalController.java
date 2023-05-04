@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.ElectronicJournal;
 
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 import com.pekao.projektpekao.service.ElectronicJournalService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

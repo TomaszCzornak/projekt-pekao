@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.CommentTestUtility;
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

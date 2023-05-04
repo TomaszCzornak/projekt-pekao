@@ -1,6 +1,6 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Author;
+import com.pekao.projektpekao.domain.Author;
 
 public class AuthorTestUtility {
 

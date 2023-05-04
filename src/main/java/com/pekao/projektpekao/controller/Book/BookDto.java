@@ -2,8 +2,8 @@ package com.pekao.projektpekao.controller.Book;
 
 import com.pekao.projektpekao.controller.Author.AuthorDto;
 import com.pekao.projektpekao.controller.Comments.CommentDto;
-import com.pekao.projektpekao.entity.Book;
-import com.pekao.projektpekao.entity.ElectronicJournal;
+import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.ElectronicJournal;
 
 import java.util.List;
 public class BookDto {

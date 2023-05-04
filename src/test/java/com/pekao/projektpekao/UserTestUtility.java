@@ -1,7 +1,7 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.entity.Comment;
-import com.pekao.projektpekao.entity.User;
+import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.User;
 
 import java.time.LocalDate;
 import java.util.List;

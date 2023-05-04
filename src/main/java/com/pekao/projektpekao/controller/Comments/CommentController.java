@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.Comments;
 
-import com.pekao.projektpekao.entity.Comment;
+import com.pekao.projektpekao.domain.Comment;
 import com.pekao.projektpekao.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
