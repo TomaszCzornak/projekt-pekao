@@ -1,8 +1,10 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.AuthorTestUtility;
-import com.pekao.projektpekao.domain.Author;
-import com.pekao.projektpekao.repository.AuthorRepository;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.Author.AuthorParamsMapper;
+import com.pekao.projektpekao.repository.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,14 @@ class AuthorServiceTest {
 
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ElectronicJournalRepository electronicJournalRepository;
 
     @BeforeEach
     void setUp() {
@@ -33,14 +43,18 @@ class AuthorServiceTest {
 
     @AfterEach
     void tearDown() {
+        commentRepository.deleteAll();
+        bookRepository.deleteAll();
         authorRepository.deleteAll();
+        electronicJournalRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
     void findAllAuthors() {
         //given
-        final List<Author> authorsToSave = List.of(AuthorTestUtility.createAuthor("Stephen","King"),
-        AuthorTestUtility.createAuthor("Marco", "Polo"),AuthorTestUtility.createAuthor("Rysiek","Kapuściński"));
+        final List<Author> authorsToSave = List.of(AuthorTestUtility.createAuthorEntity("Stephen","King"),
+        AuthorTestUtility.createAuthorEntity("Marco", "Polo"),AuthorTestUtility.createAuthorEntity("Rysiek","Kapuściński"));
         List<Author> authorsSaved = authorRepository.saveAll(authorsToSave);
         //when
         List <Author> authorsFound = authorService.findAllAuthors();
@@ -58,7 +72,7 @@ class AuthorServiceTest {
     @Test
     void findAuthorById() {
         //given
-        Author authorToSave = AuthorTestUtility.createAuthor("Mary","Jane");
+        Author authorToSave = AuthorTestUtility.createAuthorEntity("Mary","Jane");
         Author savedAuthor = authorRepository.save(authorToSave);
         //when
         Author authorFound = authorService.findAuthorById(authorToSave.getId());
@@ -72,7 +86,7 @@ class AuthorServiceTest {
     @Test
     void removeAuthorById() {
         //given
-        Author authorToSave = AuthorTestUtility.createAuthor("Tomasz","Bykowski");
+        Author authorToSave = AuthorTestUtility.createAuthorEntity("Tomasz","Bykowski");
         Author authorSaved = authorRepository.save(authorToSave);
         //when
         authorService.removeAuthorById(authorSaved.getId());
@@ -83,7 +97,7 @@ class AuthorServiceTest {
     @Test
     void addAuthor() {
         //given
-        Author authorToSave = AuthorTestUtility.createAuthor("Pierre","Cardin");
+        AuthorParams authorToSave = AuthorTestUtility.createAuthor("Pierre","Cardin");
         //when
         Author authorSaved = authorService.addAuthor(authorToSave);
         //then
@@ -95,10 +109,10 @@ class AuthorServiceTest {
     @Test
     void updateAuthor() {
         //given
-        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthor("Johnny", "Walker"));
-        Author authorChangedToSave = Author.builder()
-                .from(authorSaved)
-                .withLastName("B. Good")
+        Author authorSaved = authorService.addAuthor(AuthorTestUtility.createAuthor("Johnny", "Walker"));
+        AuthorParams authorParamsMapped = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        AuthorParams authorChangedToSave = authorParamsMapped.toBuilder()
+                .lastName("B. Good")
                 .build();
         //when
         authorService.updateAuthor(authorChangedToSave);
@@ -109,7 +123,7 @@ class AuthorServiceTest {
     @Test
     void findAuthorByLastName() {
         //given
-        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthor("Johnny", "Walker"));
+        Author authorSaved = authorService.addAuthor(AuthorTestUtility.createAuthor("Johnny", "Walker"));
         //when
         Author authorFound = authorService.findAuthorByLastName(authorSaved.getLastName());
         //then

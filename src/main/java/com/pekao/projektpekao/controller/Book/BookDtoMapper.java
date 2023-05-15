@@ -1,27 +1,24 @@
 package com.pekao.projektpekao.controller.Book;
 
-import com.pekao.projektpekao.controller.Author.AuthorDto;
+import com.pekao.projektpekao.controller.Author.AuthorDtoMapper;
 import com.pekao.projektpekao.controller.Comments.CommentDtoMapper;
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Book.Book;
+import com.pekao.projektpekao.domain.Book.BookParams;
 
 import java.util.List;
 
 public final class BookDtoMapper {
 
-    private BookDtoMapper() {}
+    private BookDtoMapper() {
+    }
 
-    public static BookDto toBookDto(Book book) {
+    public static BookDto toBookDto(BookParams bookParams) {
         return BookDto.builder()
-                .id(book.getId())
-                .title(book.getTitle())
-                .author(AuthorDto.builder()
-                        .id(book.getAuthor().getId())
-                        .firstName(book.getAuthor().getFirstName())
-                        .lastName(book.getAuthor().getLastName())
-                        .build())
-                .commentDtoList(CommentDtoMapper.toCommentsDto(book.getCommentList()))
-                .publisher(book.getPublisher())
-                .electronicJournal(book.getElectronicJournal())
+                .id(bookParams.getId())
+                .authorDto(AuthorDtoMapper.fromParamsToAuthorDto(bookParams.getAuthorParams()))
+                .title(bookParams.getTitle())
+                .commentDtoList(CommentDtoMapper.toCommentsParams(bookParams.getCommentParamsList()))
+                .publisher(bookParams.getPublisher())
                 .build();
 
     }
@@ -32,4 +29,14 @@ public final class BookDtoMapper {
                 .toList();
     }
 
+    public static BookDto toBookDto(Book book) {
+        return BookDto.builder()
+                .id(book.getId())
+                .authorDto(AuthorDtoMapper.fromParamsToAuthorDto(book.getAuthor()))
+                .title(book.getTitle())
+                .commentDtoList(CommentDtoMapper.toCommentsDto(book.getCommentList()))
+                .publisher(book.getPublisher())
+                .build();
+
     }
+}

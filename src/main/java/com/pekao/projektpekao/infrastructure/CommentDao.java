@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.Comment.Comment;
 
 import java.util.List;
 import java.util.Optional;

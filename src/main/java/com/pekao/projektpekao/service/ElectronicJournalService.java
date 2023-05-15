@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.controller.ElectronicJournal.ElectronicJournalEntityMapper;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournalParams;
 import com.pekao.projektpekao.infrastructure.ElectronicJournalDao;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,14 @@ public class ElectronicJournalService {
         electronicJournalDao.deleteElectronicJournalById(id);
     }
 
-    public ElectronicJournal addElectronicJournal(ElectronicJournal electronicJournal) {
+    public ElectronicJournal addElectronicJournal(ElectronicJournalParams electronicJournalParams) {
+        ElectronicJournal electronicJournalEntity = ElectronicJournalEntityMapper.toElectronicJournalEntity(electronicJournalParams);
+        return electronicJournalDao.addElectronicJournal(electronicJournalEntity);
+    }
+
+    public ElectronicJournal updateElectronicJournal(ElectronicJournalParams electronicJournalParams) {
+        ElectronicJournal electronicJournal = ElectronicJournalEntityMapper.toElectronicJournalEntity(electronicJournalParams);
         return electronicJournalDao.addElectronicJournal(electronicJournal);
     }
 
-    public ElectronicJournal updateElectronicJournal(ElectronicJournal electronicJournal) {
-        return electronicJournalDao.addElectronicJournal(electronicJournal);
-    }
 }

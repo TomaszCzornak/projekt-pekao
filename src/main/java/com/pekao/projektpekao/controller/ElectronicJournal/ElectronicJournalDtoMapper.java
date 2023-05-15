@@ -1,7 +1,6 @@
 package com.pekao.projektpekao.controller.ElectronicJournal;
 
-import com.pekao.projektpekao.controller.Users.UserDtoMapper;
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class ElectronicJournalDtoMapper {
                 .id(electronicJournal.getId())
                 .created(electronicJournal.getCreated())
                 .name(electronicJournal.getName())
-                .userDto(UserDtoMapper.toUserDto(electronicJournal.getUser()))
                 .eventType(electronicJournal.getEventType())
                 .build();
     }

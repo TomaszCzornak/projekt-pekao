@@ -1,12 +1,19 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.CommentTestUtility;
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.UserTestUtility;
+import com.pekao.projektpekao.controller.Comments.CommentDto;
+import com.pekao.projektpekao.controller.Comments.CommentDtoMapper;
+import com.pekao.projektpekao.domain.Comment.Comment;
+import com.pekao.projektpekao.domain.Comment.CommentParams;
+import com.pekao.projektpekao.domain.Comment.CommentParamsMapper;
+import com.pekao.projektpekao.domain.User.User;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
@@ -23,6 +30,10 @@ class CommentServiceTest {
     private CommentService commentService;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private UserService userService;
+
+
 
     @AfterEach
     void tearDown() {
@@ -32,7 +43,7 @@ class CommentServiceTest {
     @Test
     void findAllComments() {
         //given
-        final List<Comment> commentList = commentRepository.saveAll(
+        commentRepository.saveAll(
                 List.of(CommentTestUtility.createComment(),
                         CommentTestUtility.createComment(),
                         CommentTestUtility.createComment()));
@@ -67,29 +78,33 @@ class CommentServiceTest {
     @Test
     void addComment() {
         //given
-        Comment commentToSave = CommentTestUtility.createComment();
+        User userSaved = userService.addUser(UserTestUtility.createParamsUser("Lorrain","Garcia"));
+        Comment commentWithUser = CommentTestUtility.createCommentWithUser(userSaved);
+        CommentParams commentParamsMapped = CommentParamsMapper.fromEntityToCommentParams(commentWithUser);
         //when
-        Comment commentSaved = commentService.addComment(commentToSave);
+        Comment commentSaved = commentService.addComment(commentParamsMapped);
         //then
         assertNotNull(commentSaved);
         assertThat(commentSaved).extracting("id", "content")
                 .doesNotContainNull()
-                .containsExactly(commentSaved.getId(), commentToSave.getContent());
+                .containsExactly(commentSaved.getId(), commentWithUser.getContent());
     }
 
     @Test
     void updateComment() {
         //given
-        Comment commentSaved = commentRepository.save(CommentTestUtility.createComment());
-
+        User userSaved = userService.addUser(UserTestUtility.createParamsUser("Lorrain","Garcia"));
+        Comment commentWithUser = CommentTestUtility.createCommentWithUser(userSaved);
+        CommentParams commentParamsMapped = CommentParamsMapper.fromEntityToCommentParams(commentWithUser);
         //when
-        Comment commentChangedToSave = Comment.builder()
-                .from(commentSaved)
-                .content("Zmieniony komentarz")
+        Comment commentFound = commentService.addComment(commentParamsMapped);
+        CommentParams commentParams = CommentParamsMapper.fromEntityToCommentParams(commentFound);
+        CommentParams commentChangedToSave = commentParams.toBuilder()
+                .content("Zmieniony komentarz do testu")
                 .build();
         Comment commentUpdated = commentService.updateComment(commentChangedToSave);
         //then
-        assertEquals(commentUpdated.getContent(), "Zmieniony komentarz");
+        assertEquals("Zmieniony komentarz do testu", commentUpdated.getContent());
 
     }
 

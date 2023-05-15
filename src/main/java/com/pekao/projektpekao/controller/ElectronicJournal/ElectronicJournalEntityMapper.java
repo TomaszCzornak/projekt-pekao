@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.controller.ElectronicJournal;
 
-import com.pekao.projektpekao.controller.Users.UserEntityMapper;
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournalParams;
 
 import java.util.List;
 
@@ -15,15 +15,21 @@ public class ElectronicJournalEntityMapper {
                 .id(electronicJournalDto.getId())
                 .name(electronicJournalDto.getName())
                 .eventType(electronicJournalDto.getEventType())
-                .user(UserEntityMapper.userEntity(electronicJournalDto.getUserDto()))
                 .created(electronicJournalDto.getCreated())
-                .buildNew();
+                .buildFrom();
     }
 
     public static List<ElectronicJournal> toElectronicJournalEntity(List<ElectronicJournalDto> electronicJournalDtoList) {
         return electronicJournalDtoList.stream()
                 .map(ElectronicJournalEntityMapper::toElectronicJournalEntity)
                 .toList();
+    }
+    public static ElectronicJournal toElectronicJournalEntity(ElectronicJournalParams electronicJournalDtoParams) {
+        return ElectronicJournal.builder()
+                .id(electronicJournalDtoParams.getId())
+                .name(electronicJournalDtoParams.getName())
+                .eventType(electronicJournalDtoParams.getEventType())
+                .buildFrom();
     }
 
 }

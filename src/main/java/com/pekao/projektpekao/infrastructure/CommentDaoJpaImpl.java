@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.Comment.Comment;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.springframework.stereotype.Repository;
 

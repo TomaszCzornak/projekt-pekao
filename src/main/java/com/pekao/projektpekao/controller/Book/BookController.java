@@ -1,7 +1,8 @@
 package com.pekao.projektpekao.controller.Book;
 
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Book.*;
 import com.pekao.projektpekao.service.BookService;
+import com.pekao.projektpekao.service.ElectronicJournalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,8 @@ public class BookController {
 
     private final BookService bookService;
 
-    public BookController(BookService bookService) {
+
+    public BookController(BookService bookService, ElectronicJournalService electronicJournalService) {
         this.bookService = bookService;
     }
 
@@ -48,8 +50,8 @@ public class BookController {
     @PostMapping()
     public BookResponse postBook(@RequestBody BookDto bookDto) {
         // DTO -> PARAMSY
-        Book bookToPost = BookEntityMapper.toBookEntity(bookDto);
-        Book bookSaved = bookService.addBook(bookToPost);
+        BookParams bookParams = BookParamsMapper.toCreateBookParams(bookDto);
+        Book bookSaved = bookService.addBook(bookParams);
         BookDto bookDto1 = BookDtoMapper.toBookDto(bookSaved);
         return BookResponse.builder()
                 .bookDtoResponse(bookDto1)
@@ -61,7 +63,7 @@ public class BookController {
         if (!Objects.equals(id, bookService.findBookById(id).getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }
-        Book bookToPut = BookEntityMapper.toBookEntity(bookDto);
+        BookParams bookToPut = BookParamsMapper.toCreateBookParams(bookDto);
         bookService.updateBook(bookToPut);
     }
 }

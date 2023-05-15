@@ -1,6 +1,7 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.Comment;
 
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.User.User;
+import com.pekao.projektpekao.domain.Book.Book;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -1,7 +1,8 @@
 package com.pekao.projektpekao.controller.Book;
 
-import com.pekao.projektpekao.domain.Author;
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.Book.Book;
+import com.pekao.projektpekao.domain.Book.BookParams;
 
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class BookForCommentEntityMapper {
 
     public static Book toBookEntity(BookForCommentDto bookForCommentDto) {
         return Book.builder()
-                .id(bookForCommentDto.getId())
                 .title(bookForCommentDto.getTitle())
                 .author(Author.builder()
                         .withFirstName(bookForCommentDto.getAuthorDto().getFirstName())
@@ -27,5 +27,16 @@ public class BookForCommentEntityMapper {
         return bookForCommentDtoList.stream()
                 .map(BookForCommentEntityMapper::toBookEntity)
                 .toList();
+    }
+
+    public static Book toBookEntity(BookParams bookParams) {
+        return Book.builder()
+                .title(bookParams.getTitle())
+                .author(Author.builder()
+                        .withFirstName(bookParams.getAuthorParams().getFirstName())
+                        .withLastName(bookParams.getAuthorParams().getLastName())
+                        .buildNewEntity())
+                .publisher(bookParams.getPublisher())
+                .build();
     }
 }

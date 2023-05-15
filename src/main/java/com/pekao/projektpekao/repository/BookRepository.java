@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.repository;
 
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,4 +1,6 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.ElectronicJournal;
+
+import com.pekao.projektpekao.domain.User.User;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -42,6 +44,11 @@ public class ElectronicJournal {
         this.name = name;
         this.user = user;
         this.eventType = eventType;
+    }
+
+    public ElectronicJournal(String created, String name) {
+        this.created = created;
+        this.name = name;
     }
 
     public static class ElectronicJournalBuilder {
@@ -93,11 +100,15 @@ public class ElectronicJournal {
             return new ElectronicJournal(null, created, name, user, eventType);
         }
         public ElectronicJournal buildFrom() {
-            if (Stream.of(id, created, name, eventType).anyMatch(Objects::isNull)) {
-                throw new IllegalStateException("On of required values is null: [%s]".formatted(List.of(id, created, name, user, eventType)));
+            return new ElectronicJournal(id, created, name, user, eventType);
+        }
+
+        public ElectronicJournal buildNewWithAuthor() {
+            if (Stream.of(created, name).anyMatch(Objects::isNull)) {
+                throw new IllegalStateException("On of required values is null: [%s]".formatted(List.of(created, name)));
             }
 
-            return new ElectronicJournal(id, created, name, user, eventType);
+            return new ElectronicJournal(created, name);
         }
     }
     public static ElectronicJournalBuilder builder() {

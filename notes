@@ -1,8 +1,8 @@
-        // \/ DTO           KLIENT UŻYWAJĄCY PRZEGLĄDARKI
-        // \/ DTO/PARAMS    Controller                      /\ DTO/RESPONSE
-        // \/ DTO/ENTITY    Service                         /\ DTO/RESULT
-        // \/ ENTITY        Repository                      /\ ENTITY/DTO
-        //                  DB                              /\ ENTITY
+        // \/ DTO           KLIENT UŻYWAJĄCY PRZEGLĄDARKI   /\ DTO/RESPONSE
+        // \/ DTO/PARAMS    Controller                      /\ DTO/RESULT
+        // \/ DTO/ENTITY    Service                         /\ ENTITY/DTO
+        // \/ ENTITY        Repository                      /\ ENTITY
+        //                  DB
 
         // Różnice między DTO/PARAMS/RESULT/REQUEST/RESPONSE : !!!NIE MA!!! tak samo jak nie ma różnic między @Bean/@Repository/@Component/@Service
 

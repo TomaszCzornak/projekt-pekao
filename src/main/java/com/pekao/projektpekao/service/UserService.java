@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.domain.User;
+import com.pekao.projektpekao.controller.Users.UserEntityMapper;
+import com.pekao.projektpekao.domain.User.User;
+import com.pekao.projektpekao.domain.User.UserParams;
 import com.pekao.projektpekao.infrastructure.UserDao;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +33,14 @@ public class UserService {
         userDaoJpa.deleteById(id);
     }
 
-    public User addUser(User user) {
-        return userDaoJpa.addUser(user);
+    public User addUser(UserParams userParams) {
+        User userMapped = UserEntityMapper.toUserEntity(userParams);
+        return userDaoJpa.addUser(userMapped);
     }
 
-    public User updateUser(User user) {
-        return userDaoJpa.updateUser(user);
+    public User updateUser(UserParams userParams) {
+        User userEntityMapped = UserEntityMapper.toUserEntity(userParams);
+        return userDaoJpa.updateUser(userEntityMapped);
     }
 
 }

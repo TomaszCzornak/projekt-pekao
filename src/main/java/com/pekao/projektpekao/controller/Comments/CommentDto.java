@@ -13,8 +13,7 @@ public class CommentDto {
     private UserDto userDto;
     private BookForCommentDto bookForCommentDto;
 
-    protected CommentDto() {
-    }
+
 
 
     public static final class Builder {

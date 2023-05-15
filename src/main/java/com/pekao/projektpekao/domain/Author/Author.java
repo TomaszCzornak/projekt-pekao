@@ -1,6 +1,7 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.Author;
 
-import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.Book.Book;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Entity
+@Setter
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,5 +98,6 @@ public class Author {
     public static Builder builder() {
         return new Author.Builder();
     }
+
 
 }

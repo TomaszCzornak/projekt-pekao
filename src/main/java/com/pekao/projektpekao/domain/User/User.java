@@ -1,4 +1,6 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.User;
+
+import com.pekao.projektpekao.domain.Comment.Comment;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -87,9 +89,6 @@ public class User {
         }
 
         public User build() {
-            if (Stream.of(id, firstName, lastName, email, createdAt, commentList).anyMatch(Objects::isNull)) {
-                throw new IllegalStateException("On of required values is null: [%s]".formatted(List.of(id, firstName, lastName, email, createdAt, commentList)));
-            }
             return new User(id, firstName, lastName, email, createdAt, commentList);
         }
 

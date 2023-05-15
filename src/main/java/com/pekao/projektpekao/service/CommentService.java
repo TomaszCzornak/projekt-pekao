@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.controller.Comments.CommentEntityMapper;
+import com.pekao.projektpekao.domain.Comment.Comment;
+import com.pekao.projektpekao.domain.Comment.CommentParams;
 import com.pekao.projektpekao.infrastructure.CommentDao;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +35,14 @@ public class CommentService {
         commentDaoJpa.deleteCommentById(id);
     }
 
-    public Comment addComment(Comment comment) {
-        return commentDaoJpa.addComment(comment);
+    public Comment addComment(CommentParams commentParams) {
+        Comment commentEntity = CommentEntityMapper.toCommentEntity(commentParams);
+        return commentDaoJpa.addComment(commentEntity);
     }
 
-    public Comment updateComment(Comment comment) {
-        return commentDaoJpa.updateComment(comment);
+    public Comment updateComment(CommentParams commentParams) {
+        Comment commentEntityMapped = CommentEntityMapper.toCommentEntity(commentParams);
+        return commentDaoJpa.updateComment(commentEntityMapped);
     }
 
 }

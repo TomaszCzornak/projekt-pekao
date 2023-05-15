@@ -2,7 +2,7 @@ package com.pekao.projektpekao.controller.ElectronicJournal;
 
 
 import com.pekao.projektpekao.controller.Users.UserDto;
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

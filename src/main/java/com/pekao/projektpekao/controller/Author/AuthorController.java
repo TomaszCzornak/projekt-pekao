@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.controller.Author;
 
-import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.AuthorParamsMapper;
 import com.pekao.projektpekao.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,6 @@ import java.util.List;
 @RequestMapping("/api/author")
 public class AuthorController {
     
-    // TODO:AR -> 5/4/2023 -> unused
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorController.class);
-
     private final AuthorService authorService;
 
     public AuthorController(AuthorService authorService) {
@@ -46,11 +45,9 @@ public class AuthorController {
 
     @PostMapping()
     public AuthorOnlyResponse postAuthor(@RequestBody AuthorDto authorDto) {
-//        Author authorToPost = AuthorEntityMapper.toAuthorEntity(authorDto);
-//        Author authorSaved = authorService.addAuthor(authorToPost);
-        CreateAuthorParams createAuthorParams = AuthorEntityMapper.toCreatAuthorParams(authorDto);
-        AuthorDto authorSaved = authorService.addAuthor(createAuthorParams);
-        AuthorDto authorDto1 = AuthorDtoMapper.toAuthorDto(authorSaved);
+        AuthorParams authorParams = AuthorParamsMapper.toAuthorParams(authorDto);
+        Author authorSaved = authorService.addAuthor(authorParams);
+        AuthorDto authorDto1 = AuthorDtoMapper.fromParamsToAuthorDto(authorSaved);
         return AuthorOnlyResponse.builder()
                 .authorOnlyResponse(authorDto1)
                 .build();
@@ -61,7 +58,7 @@ public class AuthorController {
         if (!id.equals(authorDto.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }
-        Author authorToPut = AuthorEntityMapper.toAuthorEntity(authorDto);
-        authorService.updateAuthor(authorToPut);
+        AuthorParams authorParams = AuthorParamsMapper.toAuthorParams(authorDto);
+        authorService.addAuthor(authorParams);
     }
 }

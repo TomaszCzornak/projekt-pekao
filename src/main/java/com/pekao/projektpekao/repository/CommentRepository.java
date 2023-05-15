@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.repository;
 
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.Comment.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

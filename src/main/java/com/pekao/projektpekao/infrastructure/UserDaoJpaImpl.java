@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.infrastructure;
 
-import com.pekao.projektpekao.domain.User;
+import com.pekao.projektpekao.domain.User.User;
 import com.pekao.projektpekao.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 

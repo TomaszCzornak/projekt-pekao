@@ -1,7 +1,16 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.controller.Author.AuthorEntityMapper;
+import com.pekao.projektpekao.controller.ElectronicJournal.ElectronicJournalDto;
+import com.pekao.projektpekao.controller.ElectronicJournal.ElectronicJournalDtoMapper;
+import com.pekao.projektpekao.domain.Author.AuthorFactory;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournalParams;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournalParamsMapper;
 import com.pekao.projektpekao.infrastructure.AuthorDao;
+import com.pekao.projektpekao.infrastructure.ElectronicJournalDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +24,12 @@ public class AuthorService {
     @Resource(name = "AuthorDaoJpaImpl")
     private final AuthorDao authorDaoJpa;
 
-    public AuthorService(@Qualifier("AuthorDaoJpaImpl") AuthorDao authorDaoJpa) {
+    @Resource(name = "ElectronicJournalJpaImpl")
+    private final ElectronicJournalDao electronicJournalJpa;
+
+    public AuthorService(@Qualifier("AuthorDaoJpaImpl") AuthorDao authorDaoJpa, ElectronicJournalDao electronicJournalDao) {
         this.authorDaoJpa = authorDaoJpa;
+        this.electronicJournalJpa = electronicJournalDao;
     }
 
     public List findAllAuthors() {
@@ -34,11 +47,15 @@ public class AuthorService {
         authorDaoJpa.deleteAuthorById(id);
     }
 
-    public Author addAuthor(Author author) {
-        return authorDaoJpa.addAuthor(author);
+    public Author addAuthor(AuthorParams authorParams) {
+        ElectronicJournal electronicJournalToSave = AuthorFactory.createElectronicJournalEventTypeForAuthor(authorParams.getFirstName(), authorParams.getLastName());
+        electronicJournalJpa.addElectronicJournal(electronicJournalToSave);
+        Author authorEntity = AuthorEntityMapper.toAuthorEntity(authorParams);
+        return authorDaoJpa.addAuthor(authorEntity);
     }
 
-    public Author updateAuthor(Author author) {
-        return authorDaoJpa.addAuthor(author);
+    public Author updateAuthor(AuthorParams authorParams) {
+        Author authorMapped = AuthorEntityMapper.toAuthorEntity(authorParams);
+        return authorDaoJpa.addAuthor(authorMapped);
     }
 }

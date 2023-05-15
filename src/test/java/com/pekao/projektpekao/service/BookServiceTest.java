@@ -2,11 +2,14 @@ package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.AuthorTestUtility;
 import com.pekao.projektpekao.BookTestUtility;
-import com.pekao.projektpekao.domain.Author;
-import com.pekao.projektpekao.domain.book.Book;
-import com.pekao.projektpekao.domain.ElectronicJournal;
-import com.pekao.projektpekao.repository.BookRepository;
-import com.pekao.projektpekao.repository.CommentRepository;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.AuthorParamsMapper;
+import com.pekao.projektpekao.domain.Book.BookParams;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
+import com.pekao.projektpekao.domain.Book.Book;
+import com.pekao.projektpekao.domain.Book.BookParamsMapper;
+import com.pekao.projektpekao.repository.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -28,89 +31,106 @@ class BookServiceTest {
     @Autowired
     private AuthorService authorService;
     @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
     private CommentRepository commentRepository;
-
+    @Autowired
+    private ElectronicJournalRepository electronicJournalRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private BookRepository bookRepository;
 
 
     @AfterEach
     void tearDown() {
+        commentRepository.deleteAll();
         bookRepository.deleteAll();
+        authorRepository.deleteAll();
+        electronicJournalRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
     void shouldCreateBookOfEventTypeWhenPublisherWYDAWNICTWO_LITERACKIE() {
+        //createBookWithTitleAuthorAndPublisherAndCommentsAndUser
         //given
-        Book book = BookTestUtility.createBookWithPublisher(Book.Publisher.WYDAWNICTWO_LITERACKIE);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Mary", "Smith"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.WYDAWNICTWO_LITERACKIE, authorParams1);
         //when
-        Book bookFound = bookService.addBook(book);
+        bookService.addBook(bookParams);
+        ElectronicJournal electronicJournalFound = electronicJournalRepository.findElectronicJournalByName("Tu wydawcą jest Wydawnictwo Literackie");
         //then
-        assertEquals(bookFound.getElectronicJournal().getEventType(), ElectronicJournal.EventType.MANAGER);
-
+        assertEquals(ElectronicJournal.EventType.MANAGER, electronicJournalFound.getEventType());
     }
+
 
     @Test
     void shouldCreateBookOfEventTypeWhenPublisherPWN() {
         //given
-        Book book = BookTestUtility.createBookWithPublisher(Book.Publisher.PWN);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Stephen", "King"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.PWN, authorParams1);
         //when
-        Book bookFound = bookService.addBook(book);
+        bookService.addBook(bookParams);
+        ElectronicJournal electronicJournalFound = electronicJournalRepository.findElectronicJournalByName("Tu wydawcą jest PWN");
         //then
-        assertEquals(bookFound.getElectronicJournal().getEventType(), ElectronicJournal.EventType.DONE);
+        assertEquals(ElectronicJournal.EventType.DONE, electronicJournalFound.getEventType());
     }
 
     @Test
     void shouldCreateBookOfEventTypeWhenPublisherZNAK() {
         //given
-        Book book = BookTestUtility.createBookWithPublisher(Book.Publisher.ZNAK);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Stephen", "King"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.ZNAK, authorParams1);
         //when
-        Book bookFound = bookService.addBook(book);
+        bookService.addBook(bookParams);
+        ElectronicJournal electronicJournalFound = electronicJournalRepository.findElectronicJournalByName("Tu wydawcą jest ZNAK");
         //then
-        assertEquals(bookFound.getElectronicJournal().getEventType(), ElectronicJournal.EventType.TO_DO);
+        assertEquals(ElectronicJournal.EventType.TO_DO, electronicJournalFound.getEventType());
     }
 
     @Test
     void shouldCreateBookOfEventTypeWhenPublisherAGORA() {
         //given
-        Book book = BookTestUtility.createBookWithPublisher(Book.Publisher.AGORA);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Stephen", "King"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.AGORA, authorParams1);
         //when
-        Book bookFound = bookService.addBook(book);
+        bookService.addBook(bookParams);
+        ElectronicJournal electronicJournalFound = electronicJournalRepository.findElectronicJournalByName("Tu wydawcą jest AGORA");
         //then
-        assertEquals(bookFound.getElectronicJournal().getEventType(), ElectronicJournal.EventType.WIP);
+        assertEquals(ElectronicJournal.EventType.WIP, electronicJournalFound.getEventType());
     }
 
 
     @Test
     void findAllBooks() {
         //given
-        final List<Book> booksToSave = List.of(BookTestUtility.createBookWithPublisher(Book.Publisher.ZNAK),
-                BookTestUtility.createBookWithPublisher(Book.Publisher.PWN),
-                BookTestUtility.createBookWithPublisher(Book.Publisher.AGORA),
-                BookTestUtility.createBookWithPublisher(Book.Publisher.WYDAWNICTWO_LITERACKIE));
-        bookRepository.saveAll((booksToSave));
+        Author authorSaved1 = authorRepository.save(AuthorTestUtility.createdAuthorWithFirstNameAndLastName("Jan", "Kowalski"));
+        Author authorSaved2 = authorRepository.save(AuthorTestUtility.createdAuthorWithFirstNameAndLastName("Marian", "Mariańśki"));
+        List<Book> listOfBooks = List.of(BookTestUtility.createBookAllParameters(authorSaved1), BookTestUtility.createBookAllParameters(authorSaved2));
+        List<Book> booksSaved = bookRepository.saveAll((listOfBooks));
         //when
         List<Book> allBooksFound = bookService.findAllBooks();
         //then
-        assertThat(allBooksFound, hasSize(4));
+        assertThat(allBooksFound, hasSize(2));
         Assertions.assertThat(
-                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksToSave.get(0).getPublisher()))
+                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksSaved.get(0).getPublisher()))
         ).isTrue();
         Assertions.assertThat(
-                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksToSave.get(1).getPublisher()))
-        ).isTrue();
-        Assertions.assertThat(
-                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksToSave.get(2).getPublisher()))
-        ).isTrue();
-        Assertions.assertThat(
-                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksToSave.get(3).getPublisher()))
+                allBooksFound.stream().anyMatch(n -> n.getPublisher().equals(booksSaved.get(1).getPublisher()))
         ).isTrue();
     }
 
     @Test
     void findBookById() {
         //given
-        Book bookSaved = bookRepository.save(BookTestUtility.createBookWithPublisher(Book.Publisher.ZNAK));
+        Author authorSaved1 = authorRepository.save(AuthorTestUtility.createdAuthorWithFirstNameAndLastName("Jan", "Kowalski"));
+        Book bookSaved = BookTestUtility.createBookAllParameters(authorSaved1);
+        bookRepository.save(bookSaved);
         //when
         Book bookFound = bookService.findBookById(bookSaved.getId());
         //then
@@ -120,49 +140,56 @@ class BookServiceTest {
     @Test
     void findBookByTitle() {
         //given
-        Author authorToSave = authorService.addAuthor(AuthorTestUtility.createAuthor("Mark", "Spencer"));
-        Book bookToSave = bookRepository.save(BookTestUtility.createBookWithTitleAndAuthor("What's the story morning glory", authorToSave));
+        Author authorSaved1 = authorRepository.save(AuthorTestUtility.createdAuthorWithFirstNameAndLastName("Jan", "Kowalski"));
+        Book bookSaved = BookTestUtility.createBookAllParameters(authorSaved1);
+        bookRepository.save(bookSaved);
         //when
-        Book foundBook = bookService.findBookByTitle(bookToSave.getTitle());
+        Book foundBook = bookService.findBookByTitle(bookSaved.getTitle());
         //then
-        assertEquals(foundBook.getTitle(), bookToSave.getTitle());
+        assertEquals(foundBook.getTitle(), bookSaved.getTitle());
     }
 
     @Test
     void removeBookById() {
         //given
-        Author authorToSave = authorService.addAuthor(AuthorTestUtility.createAuthor("Mark", "Spencer"));
-        Book bookWithTitleSaved = bookRepository.save(BookTestUtility.createBookWithTitleAndAuthor("What's the story morning glory", authorToSave));
+        Author authorSaved1 = authorRepository.save(AuthorTestUtility.createdAuthorWithFirstNameAndLastName("Jan", "Kowalski"));
+        Book bookSaved = BookTestUtility.createBookAllParameters(authorSaved1);
+        bookRepository.save(bookSaved);
         //when
-        bookService.removeBookById(bookWithTitleSaved.getId());
+        bookService.removeBookById(bookSaved.getId());
         //then
-        assertThrows(IllegalStateException.class, () -> bookService.findBookById(bookWithTitleSaved.getId()));
+        assertThrows(IllegalStateException.class, () -> bookService.findBookById(bookSaved.getId()));
     }
 
     @Test
     void addBook() {
         //given
-        Author authorToSave = authorService.addAuthor(AuthorTestUtility.createAuthor("Mark", "Spencer"));
-        Book bookToBeAdded = BookTestUtility.createBookWithTitleAndAuthor("What's the story morning glory", authorToSave);
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Stephen", "King"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.AGORA, authorParams1);
         //when
-        Book bookSaved = bookService.addBook((bookToBeAdded));
+        Book bookFound = bookService.addBook(bookParams);
         //then
-        assertNotNull(bookSaved);
+        assertNotNull(bookFound);
 
     }
 
     @Test
     void updateBook() {
         //given
-        Author authorToSave = authorService.addAuthor(AuthorTestUtility.createAuthor("Mark", "Spencer"));
-        Book bookWithTitleSaved = bookRepository.save(BookTestUtility.createBookWithTitleAndAuthor("Exemplary Title",authorToSave));
-        Book bookWithChangedData = Book.builder()
-                .fromExisting(bookWithTitleSaved)
+        Author authorSaved = authorRepository.save(AuthorTestUtility.createAuthorEntity("Stephen", "King"));
+        AuthorParams authorParams1 = AuthorParamsMapper.fromEntityToAuthorParams(authorSaved);
+        BookParams bookParams = BookTestUtility.createBookWithTitleAuthorAndPublisherAndCommentsAndUser("Książka", Book.Publisher.AGORA, authorParams1);
+        //when
+        Book bookFound = bookService.addBook(bookParams);
+        BookParams bookParams1 = BookParamsMapper.fromEntityToParams(bookFound);
+        BookParams bookWithChangedData = bookParams1.toBuilder()
                 .title("This title has been changed now")
                 .build();
+
         //when
-        Book bookFoundWithChangedData = bookService.updateBook(bookWithChangedData);
+        Book bookFoundWithChangedDataFound = bookService.updateBook(bookWithChangedData);
         //then
-        assertEquals(bookFoundWithChangedData.getTitle(), "This title has been changed now");
+        assertEquals(bookWithChangedData.getTitle(), bookFoundWithChangedDataFound.getTitle());
     }
 }

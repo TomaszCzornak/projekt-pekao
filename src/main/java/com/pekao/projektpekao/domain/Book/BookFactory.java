@@ -1,6 +1,7 @@
-package com.pekao.projektpekao.domain.book;
+package com.pekao.projektpekao.domain.Book;
 
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.controller.Author.AuthorEntityMapper;
+import com.pekao.projektpekao.domain.ElectronicJournal.ElectronicJournal;
 
 public class BookFactory {
 	
@@ -8,11 +9,13 @@ public class BookFactory {
 	    1 - Wywalamy buildera z book i podmieniamy wszedzie na factory
 	    2 - 'createElectronicJournalEventType' ma być tylko w factory
 	*/
-	
-	public Book buildNewEntity(CreateBookFactoryParams params) {
+
+	public static Book buildNewEntity(CreateBookFactoryParams params) {
 		final Book book = new Book();
-		createElectronicJournalEventType();
-		
+        book.setTitle(params.getTitle());
+        book.setAuthor(AuthorEntityMapper.toAuthorEntity(params.getAuthorDto()));
+        book.setCommentList(params.getCommentDtoList());
+		book.setPublisher(params.getPublisher());
 		return book;
 		/**
 		 new Book
@@ -22,8 +25,8 @@ public class BookFactory {
 		 */
 		// tworzymy ksiazke z wszystkimi parametrami ale z logika 'buildNewEntity' z buildera
 	}
-	
-	private static ElectronicJournal createElectronicJournalEventType(Book.Publisher publisher) {
+
+	public static ElectronicJournal createElectronicJournalEventType(Book.Publisher publisher) {
 		return switch (publisher) {
 			case WYDAWNICTWO_LITERACKIE -> ElectronicJournal.builder()
 					.eventType(ElectronicJournal.EventType.MANAGER)
@@ -44,5 +47,5 @@ public class BookFactory {
 			default -> throw new IllegalArgumentException("Invalid example: " + publisher);
 		};
 	}
-	
+
 }

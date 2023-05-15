@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: coderslab
+      POSTGRES_DB: biblioteka
+  spring-boot:
+    container_name: projekt-pekao-web-1
+    build: .
+    ports:
+      - '8080:8080'
+      - '5005:5005'
+    depends_on:
+      - db
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db/biblioteka
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: coderslab
+        JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+
+
+
